@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --safety-orange: #E30613; /* Merah Brand PakSafe */
+            --safety-orange: #E30613;
             --dark-navy: #0f172a;
             --warning-yellow: #fbbf24;
             --soft-white: #f8fafc;
@@ -15,7 +15,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
         body { background: var(--soft-white); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
@@ -37,9 +36,14 @@
         input { padding: 18px; border-radius: 12px; border: 2px solid #e2e8f0; font-size: 16px; width: 100%; background: #f8fafc; }
         
         .btn { background: var(--safety-orange); color: #fff; padding: 18px 40px; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
-        .btn-whatsapp { background: var(--success-green); width: 100%; margin-bottom: 10px; }
-        .btn-review { background: #64748b; width: 100%; margin-top: 15px; }
-        .btn-retry { background: transparent; color: var(--safety-orange); border: 2px solid var(--safety-orange); width: 100%; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* PETUNJUK STYLE (SESUAI GAMBAR) */
+        .instruction-grid { display: flex; justify-content: space-between; align-items: flex-start; gap: 15px; margin: 40px 0; text-align: left; }
+        .inst-item { flex: 1; display: flex; flex-direction: row; align-items: center; gap: 12px; }
+        .inst-icon { width: 50px; height: 50px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; border: 2px solid #e2e8f0; }
+        .inst-text { font-size: 13px; line-height: 1.4; color: #475569; }
+        .inst-text b { color: var(--safety-orange); }
 
         /* QUIZ UI */
         .quiz-header { background: var(--dark-navy); color: #fff; padding: 20px; border-radius: 14px 14px 0 0; display: flex; justify-content: space-between; align-items: center; margin: -45px -45px 0 -45px; }
@@ -48,23 +52,27 @@
         .quiz-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .quiz-image-container img { width: 100%; border-radius: 15px; height: 350px; object-fit: cover; }
         
-        .option { border: 2px solid #f1f5f9; padding: 18px; border-radius: 15px; margin: 10px 0; cursor: pointer; font-weight: 600; background: #f8fafc; }
+        .option { border: 2px solid #f1f5f9; padding: 18px; border-radius: 15px; margin: 10px 0; cursor: pointer; font-weight: 600; background: #f8fafc; transition: 0.2s; }
+        .option:hover { background: #f1f5f9; border-color: #cbd5e1; }
         .option.selected { background: #fff7ed; border-color: var(--safety-orange); color: var(--safety-orange); }
 
-        /* RESULT SCREEN (MIRIP GAMBAR) */
-        .result-box { display: flex; align-items: center; gap: 30px; border-top: 1px solid #eee; padding-top: 30px; }
+        /* RESULT BOX */
+        .result-box { display: flex; align-items: center; gap: 30px; border-top: 1px solid #eee; padding-top: 30px; margin-top: 20px; }
         .result-left { flex: 1; border-right: 1px solid #eee; text-align: center; }
         .result-right { flex: 1; text-align: center; }
         .score-val { font-size: 70px; font-weight: 900; color: #000; line-height: 1; }
         .cat-badge { display: inline-flex; align-items: center; gap: 10px; background: #f0fdf4; color: #166534; padding: 10px 20px; border-radius: 10px; border: 1px solid #bbf7d0; font-weight: 800; }
 
-        /* MODAL RATIONALE */
+        /* MODAL */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto; }
         .modal-content { background: #fff; margin: 5% auto; padding: 30px; width: 90%; max-width: 800px; border-radius: 20px; }
         .review-card { padding: 20px; border-bottom: 1px solid #eee; }
         .rationale-text { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-top: 10px; border-left: 5px solid var(--safety-orange); font-style: italic; }
 
-        @media (max-width: 850px) { .quiz-body, .result-box, .grid { grid-template-columns: 1fr; flex-direction: column; } .result-left { border-right: none; border-bottom: 1px solid #eee; padding-bottom: 20px; } }
+        @media (max-width: 850px) { 
+            .quiz-body, .result-box, .grid, .instruction-grid { grid-template-columns: 1fr; flex-direction: column; } 
+            .result-left { border-right: none; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -80,6 +88,7 @@
 
 <div id="content-wrapper" class="main-wrapper" style="display:none">
     <div class="container">
+        
         <div id="form" class="card fade-in" style="display:none">
             <img src="logo.png" class="card-logo" onerror="this.src='https://via.placeholder.com/100/0f172a/f97316?text=PAK+SAFE'">
             <h2 style="text-align:center; margin-bottom:30px;">REGISTRASI PESERTA</h2>
@@ -89,7 +98,45 @@
                 <input id="pekerjaan" placeholder="Jabatan">
                 <input id="wa" placeholder="No WhatsApp">
             </div>
-            <button class="btn" style="width:100%; margin-top:20px;" onclick="startQuiz()">MASUK KE AREA KERJA</button>
+            <button class="btn" style="width:100%; margin-top:20px;" onclick="goToInstructions()">LANJUT KE PETUNJUK</button>
+        </div>
+
+        <div id="petunjuk" class="card fade-in" style="display:none;">
+            <div style="display: flex; align-items: center; gap: 20px; border-bottom: 2px solid var(--safety-orange); padding-bottom: 15px;">
+                <img src="logo.png" style="width: 70px;" onerror="this.src='https://via.placeholder.com/70/0f172a/f97316?text=PAK+SAFE'">
+                <div>
+                    <h2 style="color: var(--safety-orange); font-weight: 900; line-height: 1; font-size: 28px;">Pak Safe</h2>
+                    <p style="font-weight: 700; color: #0f172a; font-size: 16px;">Seberapa Safety Kamu</p>
+                </div>
+                <div style="margin-left: auto; font-weight: 900; color: #64748b; letter-spacing: 2px; font-size: 14px;">PETUNJUK</div>
+            </div>
+
+            <div class="instruction-grid">
+                <div class="inst-item">
+                    <div class="inst-icon">🎯</div>
+                    <div class="inst-text">Quiz terdiri dari <b>20 soal</b> pilihan ganda.</div>
+                </div>
+                <div class="inst-item">
+                    <div class="inst-icon">📝</div>
+                    <div class="inst-text">Pilih 1 jawaban yang menurut Anda <b>PALING AMAN</b> dan <b>PALING TEPAT</b>.</div>
+                </div>
+                <div class="inst-item">
+                    <div class="inst-icon">⏱️</div>
+                    <div class="inst-text">Setiap soal harus dijawab, tidak ada waktu batasan.</div>
+                </div>
+                <div class="inst-item">
+                    <div class="inst-icon">✅</div>
+                    <div class="inst-text">Nilai Anda akan ditampilkan di akhir quiz.</div>
+                </div>
+                <div class="inst-item">
+                    <div class="inst-icon">🛡️</div>
+                    <div class="inst-text">Jawaban Anda bersifat rahasia.</div>
+                </div>
+            </div>
+
+            <button class="btn" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="startQuiz()">
+                SIAP, MULAI QUIZ <span>→</span>
+            </button>
         </div>
 
         <div id="quiz" class="card fade-in" style="display:none">
@@ -128,10 +175,10 @@
                 </div>
             </div>
             <p id="descText" style="margin:25px 0; color:#475569;"></p>
-            <div style="max-width:400px; margin: 0 auto;">
-                <button class="btn btn-whatsapp" onclick="share()">SHARE WHATSAPP</button>
-                <button class="btn btn-retry" onclick="location.reload()">ULANGI QUIZ</button>
-                <button class="btn btn-review" onclick="openModal()">LIHAT PEMBAHASAN SOAL</button>
+            <div style="max-width:400px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px;">
+                <button class="btn" style="background: var(--success-green); width: 100%;" onclick="share()">SHARE WHATSAPP</button>
+                <button class="btn" style="background: transparent; color: var(--safety-orange); border: 2px solid var(--safety-orange); width: 100%;" onclick="location.reload()">ULANGI QUIZ</button>
+                <button class="btn" style="background: #64748b; width: 100%;" onclick="openModal()">LIHAT PEMBAHASAN SOAL</button>
             </div>
         </div>
     </div>
@@ -254,18 +301,43 @@ const questions = [
     }
 ];
 
-function showForm() { document.getElementById('start').style.display="none"; document.getElementById('content-wrapper').style.display="flex"; document.getElementById('form').style.display="block"; }
-function startQuiz() { if(!document.getElementById('nama').value) return alert("Isi nama!"); document.getElementById('form').style.display="none"; document.getElementById('quiz').style.display="block"; show(); }
+function showForm() { 
+    document.getElementById('start').style.display="none"; 
+    document.getElementById('content-wrapper').style.display="flex"; 
+    document.getElementById('form').style.display="block"; 
+}
+
+function goToInstructions() {
+    if(!document.getElementById('nama').value) return alert("Silakan isi nama Anda terlebih dahulu.");
+    document.getElementById('form').style.display="none";
+    document.getElementById('petunjuk').style.display="block";
+}
+
+function startQuiz() { 
+    document.getElementById('petunjuk').style.display="none"; 
+    document.getElementById('quiz').style.display="block"; 
+    show(); 
+}
+
 function show() {
     let q = questions[current];
     document.getElementById('qnum').innerText = `SKENARIO ${current + 1} / ${questions.length}`;
     document.getElementById('qtext').innerText = q.q;
     document.getElementById('bar').style.width = ((current+1)/questions.length*100) + "%";
     document.getElementById('quizImg').src = q.img;
-    document.getElementById('options').innerHTML = q.o.map((o, i) => `<div class="option ${answers[current]===i?'selected':''}" onclick="choose(${i})">${o}</div>`).join("");
+    document.getElementById('options').innerHTML = q.o.map((o, i) => 
+        `<div class="option ${answers[current]===i?'selected':''}" onclick="choose(${i})">${o}</div>`
+    ).join("");
 }
+
 function choose(i) { answers[current] = i; show(); }
-function next() { if(answers[current]===undefined) return alert("Pilih jawaban!"); if(++current >= questions.length) finish(); else show(); }
+
+function next() { 
+    if(answers[current]===undefined) return alert("Pilih jawaban!"); 
+    if(++current >= questions.length) finish(); 
+    else show(); 
+}
+
 function prev() { if(current > 0) { current--; show(); } }
 
 function finish() {
@@ -276,9 +348,10 @@ function finish() {
     document.getElementById('final-score').innerText = p + "%";
     document.getElementById('correct-count').innerText = `${score} dari ${questions.length} benar`;
     document.getElementById('levelText').innerText = p >= 80 ? "SAFETY MATURE" : "SAFETY AWARE";
-    document.getElementById('descText').innerText = p >= 80 ? "Bagus! Anda memiliki kesadaran safety yang baik." : "Perlu ditingkatkan lagi wawasan safety-nya.";
+    document.getElementById('descText').innerText = p >= 80 ? 
+        "Bagus! Anda memiliki kesadaran safety yang baik. Tetap konsisten dan terus tingkatkan budaya safety di tempat kerja." : 
+        "Anda sudah memiliki pemahaman dasar, namun perlu ditingkatkan lagi wawasan teknis keselamatannya.";
     
-    // Render Rationale ke Modal
     document.getElementById('review-list').innerHTML = questions.map((q, i) => `
         <div class="review-card">
             <p><strong>Soal ${i+1}:</strong> ${q.q}</p>
