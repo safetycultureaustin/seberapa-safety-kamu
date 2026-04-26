@@ -23,6 +23,15 @@
             overflow-x: hidden;
         }
 
+        /* CSS LOGO BARU DI SINI */
+        .card-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            display: block;
+            object-fit: contain;
+        }
+
         /* ANIMASI FADE IN */
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
@@ -125,6 +134,8 @@
     <div class="container">
         
         <div id="form" class="card fade-in" style="display:none">
+            <img src="logo.png" class="card-logo" onerror="this.src='https://via.placeholder.com/100/0f172a/f97316?text=PAK+SAFE'">
+            
             <h2 style="text-align:center; margin-bottom:30px; font-weight: 900; color: var(--dark-navy); font-size: 32px;">REGISTRASI PESERTA</h2>
             <div class="grid">
                 <input id="nama" placeholder="Nama Lengkap">
@@ -137,6 +148,8 @@
         </div>
 
         <div id="petunjuk" class="card fade-in" style="display:none; text-align:center">
+            <img src="logo.png" class="card-logo" onerror="this.src='https://via.placeholder.com/100/0f172a/f97316?text=PAK+SAFE'">
+            
             <h2 style="font-weight: 900; color: var(--dark-navy); font-size: 32px;">BRIEFING KESELAMATAN</h2><br>
             <p style="margin-bottom:35px; font-size: 19px; color: #475569; line-height: 1.8;">Terdapat 30 skenario teknis yang membutuhkan keputusan cepat dan tepat. Jawaban Anda menentukan tingkat risiko kecelakaan di lapangan.</p>
             <button class="btn" onclick="startRealQuiz()">SAYA MENGERTI, MULAI</button>
@@ -181,7 +194,6 @@
 </div>
 
 <script>
-// Logika script tetap sama seperti yang Bapak inginkan (tidak merubah soal/jawaban)
 let current = 0, answers = [], score = 0;
 
 const questions = [
@@ -442,7 +454,7 @@ function next() {
     else {
         let el = document.getElementById('quiz');
         el.classList.remove('fade-in');
-        void el.offsetWidth; // trigger reflow
+        void el.offsetWidth; 
         el.classList.add('fade-in');
         show();
     }
