@@ -270,15 +270,29 @@ const questions = [
         a: 1, r: "Earplug atau noise tinggi membuat alarm audio tidak efektif tanpa bantuan visual spotter.", img: "forklift-blindspot.jpg"
     },
     {
-        q: "Mengapa Gas Testing di Confined Space harus periodik?",
-        o: ["A. Cek alat rusak", "B. Aktivitas mengubah komposisi udara dinamis", "C. Pengawas tidak ngantuk", "D. Formalitas izin"],
-        a: 1, r: "Proses las/cat terus mengeluarkan gas yang mengubah level oksigen/toksisitas secara dinamis.", img: "gas-test.jpg"
+        "q": "Mengapa pengujian atmosfer (Gas Testing) wajib dilakukan secara kontinu atau periodik saat operator melakukan aktivitas di dalam struktur seperti pada gambar?",
+        "o": [
+            "A. Untuk memastikan gradien suhu di dalam struktur tidak melampaui batas deformasi termal material benda kerja.",
+            "B. Karena akumulasi kontaminan gas dan fluktuasi kadar oksigen bersifat dinamis akibat proses metabolisme serta emisi dari aktivitas kerja.",
+            "C. Untuk mengkalibrasi ulang sensor LEL (Lower Explosive Limit) terhadap tekanan barometrik yang berubah di ruang tertutup.",
+            "D. Guna memvalidasi bahwa laju aliran laminer udara dari sistem ventilasi telah mencapai titik jenuh (saturation point)."
+        ],
+        "a": 1, 
+        "r": "Jawaban yang benar B. Udara di ruang terbatas tidak statis. Aktivitas seperti pernapasan (metabolisme), pengelasan, atau pengecatan terus mengubah komposisi udara (oksigen berkurang, gas beracun naik). Maka, tes gas sekali di awal saja tidak cukup.", 
+        "img": "gas-test.jpg"
     },
     {
-        q: "Mengapa penggunaan die grinder lebih disarankan daripada melepas guard pada gerinda tangan biasa saat bekerja di sudut sempit?",
-        o: ["A. Karena putaran RPM die grinder lebih stabil untuk material keras", "B. Karena die grinder tidak menghasilkan percikan api (spark-free)", "C. Karena die grinder memiliki bodi memanjang yang memungkinkan akses tanpa perlu melepas perlindungan internalnya", "D. Pakai oli agar memudahkan dan nyaman"],
-        a: 0, r: "Gunakan alat yang tepat untuk area sempit, jangan pernah memodifikasi alat safety.", img: "die-grinder.jpg"
-    },
+    "q": "Berdasarkan aspek keselamatan kerja pada gambar, mengapa penggunaan gagang samping (side handle) mutlak diperlukan saat menggerinda di dalam struktur rangka seperti itu?",
+    "o": [
+        "A. Untuk memfasilitasi disipasi panas konduktif dari gearcase ke telapak tangan operator guna mencegah overheat pada motor.",
+        "B. Sebagai isolator dielektrik tambahan untuk mencegah risiko arus bocor (ground fault) yang merambat melalui bodi logam mesin ke benda kerja.",
+        "C. Untuk menciptakan lengan momen (lever arm) yang cukup guna mengimbangi gaya reaksi torsi mendadak (kickback) saat cakram mengalami 'pinching'.",
+        "D. Untuk menyelaraskan sumbu vibrasi harmonik mesin agar tidak merusak struktur internal bantalan bola (ball bearing) pada poros utama."
+    ],
+    "a": 2,
+    "r": "Jawaban yang benar adalah C. Menggunakan handle memberikan 'leverage' atau daya ungkit bagi tangan operator. Jika cakram terjepit (pinching) di sudut rangka, mesin akan menendang balik (kickback) dengan kuat. Tanpa handle, jarak tumpuan tangan ke poros sangat pendek sehingga operator mustahil bisa menahan gaya puntir tersebut.",
+    "img": "die-grinder.jpg"
+},
     {
   "q": "Saat rigging dalam kondisi berayun, tindakan apa yang paling tepat memenuhi kriteria metode 'Separation' sesuai dengan Hands-Off Policy?",
   "o": [
