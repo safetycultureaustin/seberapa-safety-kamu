@@ -7,189 +7,144 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --safety-orange: #f97316;
+            --safety-orange: #E30613; /* Merah Brand PakSafe */
             --dark-navy: #0f172a;
             --warning-yellow: #fbbf24;
             --soft-white: #f8fafc;
+            --success-green: #28A745;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
-        body { 
-            background: var(--soft-white); 
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+        body { background: var(--soft-white); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
-        /* CSS LOGO BARU DI SINI */
-        .card-logo {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 15px;
-            display: block;
-            object-fit: contain;
-        }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ANIMASI FADE IN */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* HERO SECTION */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600') center/cover;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; text-align: center; position: relative;
-        }
-        .hero-content { max-width: 900px; padding: 20px; }
-
+        /* HERO & FORMS */
+        .hero { height: 100vh; background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600') center/cover; display: flex; align-items: center; justify-content: center; color: #fff; text-align: center; }
         .logo-container { width: 160px; height: 160px; margin: 0 auto 20px; }
-        .logo-container img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6)); }
+        .logo-container img { width: 100%; height: 100%; object-fit: contain; }
+        .title { font-size: 80px; font-weight: 900; letter-spacing: -2px; line-height: 0.9; }
+        .subtitle { font-size: 42px; font-weight: 900; color: var(--warning-yellow); margin-bottom: 25px; }
 
-        .title { font-size: 80px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; line-height: 0.9; margin-bottom: 10px; }
-        .subtitle { font-size: 42px; font-weight: 900; color: var(--warning-yellow); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
-
-        .btn {
-            background: var(--safety-orange); color: #fff; padding: 20px 50px; border: none;
-            border-radius: 12px; cursor: pointer; font-weight: 800; font-size: 22px;
-            transition: 0.3s; box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
-            text-transform: uppercase;
-        }
-        .btn:hover { transform: translateY(-3px); background: #ea580c; box-shadow: 0 15px 25px rgba(249, 115, 22, 0.4); }
-
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .container { width: 100%; max-width: 1100px; margin: auto; }
-
-        .card { 
-            background: #fff; 
-            padding: 45px; 
-            border-radius: 28px; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); 
-            border-top: 8px solid var(--safety-orange);
-        }
+        .main-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+        .container { width: 100%; max-width: 1100px; }
+        .card { background: #fff; padding: 45px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); border-top: 8px solid var(--safety-orange); }
+        .card-logo { width: 100px; margin: 0 auto 15px; display: block; }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        input { padding: 18px; border-radius: 12px; border: 2px solid #e2e8f0; font-size: 16px; width: 100%; background: #f8fafc; transition: 0.3s; }
-        input:focus { border-color: var(--safety-orange); outline: none; background: #fff; }
+        input { padding: 18px; border-radius: 12px; border: 2px solid #e2e8f0; font-size: 16px; width: 100%; background: #f8fafc; }
         
+        .btn { background: var(--safety-orange); color: #fff; padding: 18px 40px; border: none; border-radius: 12px; cursor: pointer; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
+        .btn-whatsapp { background: var(--success-green); width: 100%; margin-bottom: 10px; }
+        .btn-review { background: #64748b; width: 100%; margin-top: 15px; }
+        .btn-retry { background: transparent; color: var(--safety-orange); border: 2px solid var(--safety-orange); width: 100%; }
+
         /* QUIZ UI */
-        .quiz-header { background: var(--dark-navy); color: #fff; padding: 20px 30px; border-radius: 14px 14px 0 0; display: flex; justify-content: space-between; align-items: center; }
-        .progress { height: 14px; background: #e2e8f0; border-radius: 20px; margin: 25px 0; overflow: hidden; }
-        .bar { height: 100%; background: var(--warning-yellow); width: 0%; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .quiz-header { background: var(--dark-navy); color: #fff; padding: 20px; border-radius: 14px 14px 0 0; display: flex; justify-content: space-between; align-items: center; margin: -45px -45px 0 -45px; }
+        .progress { height: 10px; background: #e2e8f0; border-radius: 20px; margin: 25px 0; overflow: hidden; }
+        .bar { height: 100%; background: var(--safety-orange); width: 0%; transition: 0.6s; }
+        .quiz-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .quiz-image-container img { width: 100%; border-radius: 15px; height: 350px; object-fit: cover; }
         
-        .quiz-body { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; margin-top: 20px; }
-        .quiz-image-container img { width: 100%; border-radius: 20px; object-fit: cover; height: 380px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 4px solid #f1f5f9; }
-        
-        .option { border: 2px solid #f1f5f9; padding: 22px; border-radius: 18px; margin: 14px 0; cursor: pointer; transition: 0.2s; font-weight: 600; color: #1e293b; background: #f8fafc; font-size: 17px; }
-        .option.selected { background: #fff7ed; border-color: var(--safety-orange); color: #9a3412; transform: translateX(10px); }
-        .option:hover:not(.selected) { border-color: var(--safety-orange); background: #fff; }
+        .option { border: 2px solid #f1f5f9; padding: 18px; border-radius: 15px; margin: 10px 0; cursor: pointer; font-weight: 600; background: #f8fafc; }
+        .option.selected { background: #fff7ed; border-color: var(--safety-orange); color: var(--safety-orange); }
 
-        .result { text-align: center; }
-        .score { font-size: 100px; color: var(--safety-orange); font-weight: 900; margin: 5px 0; line-height: 1; }
-        .review-box { text-align: left; margin-top: 40px; border-top: 2px solid #f1f5f9; padding-top: 30px; }
-        .wrong-item { background: #fff7ed; padding: 25px; border-radius: 20px; margin-bottom: 20px; border-left: 10px solid var(--safety-orange); }
+        /* RESULT SCREEN (MIRIP GAMBAR) */
+        .result-box { display: flex; align-items: center; gap: 30px; border-top: 1px solid #eee; padding-top: 30px; }
+        .result-left { flex: 1; border-right: 1px solid #eee; text-align: center; }
+        .result-right { flex: 1; text-align: center; }
+        .score-val { font-size: 70px; font-weight: 900; color: #000; line-height: 1; }
+        .cat-badge { display: inline-flex; align-items: center; gap: 10px; background: #f0fdf4; color: #166534; padding: 10px 20px; border-radius: 10px; border: 1px solid #bbf7d0; font-weight: 800; }
 
-        /* KHUSUS TIKTOK RESPONSIVE */
-        @media (max-width: 850px) {
-            .title { font-size: 52px; }
-            .subtitle { font-size: 28px; }
-            .quiz-body { grid-template-columns: 1fr; }
-            .quiz-image-container img { height: 280px; }
-            .grid { grid-template-columns: 1fr; }
-            .card { padding: 25px; border-radius: 20px; }
-            .btn { width: 100%; font-size: 18px; }
-        }
+        /* MODAL RATIONALE */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto; }
+        .modal-content { background: #fff; margin: 5% auto; padding: 30px; width: 90%; max-width: 800px; border-radius: 20px; }
+        .review-card { padding: 20px; border-bottom: 1px solid #eee; }
+        .rationale-text { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-top: 10px; border-left: 5px solid var(--safety-orange); font-style: italic; }
+
+        @media (max-width: 850px) { .quiz-body, .result-box, .grid { grid-template-columns: 1fr; flex-direction: column; } .result-left { border-right: none; border-bottom: 1px solid #eee; padding-bottom: 20px; } }
     </style>
 </head>
 <body>
 
 <div id="start" class="hero fade-in">
     <div class="hero-content">
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo Pak Safe" onerror="this.src='https://via.placeholder.com/160/0f172a/f97316?text=PAK+SAFE'">
-        </div>
+        <div class="logo-container"><img src="logo.png" onerror="this.src='https://via.placeholder.com/160/0f172a/f97316?text=PAK+SAFE'"></div>
         <div class="title">PAK SAFE</div>
         <div class="subtitle">SEBERAPA SAFETY KAMU?</div>
-        <p style="font-size: 20px; opacity: 0.9; margin-bottom: 40px; max-width: 650px; line-height: 1.6; margin-left: auto; margin-right: auto;">Latih insting HSE Anda melalui simulasi skenario teknis industri paling kritis bersama Pak Safe.</p>
         <button class="btn" onclick="showForm()">START SIMULATION →</button>
     </div>
 </div>
 
 <div id="content-wrapper" class="main-wrapper" style="display:none">
     <div class="container">
-        
         <div id="form" class="card fade-in" style="display:none">
             <img src="logo.png" class="card-logo" onerror="this.src='https://via.placeholder.com/100/0f172a/f97316?text=PAK+SAFE'">
-            
-            <h2 style="text-align:center; margin-bottom:30px; font-weight: 900; color: var(--dark-navy); font-size: 32px;">REGISTRASI PESERTA</h2>
+            <h2 style="text-align:center; margin-bottom:30px;">REGISTRASI PESERTA</h2>
             <div class="grid">
                 <input id="nama" placeholder="Nama Lengkap">
                 <input id="asal" placeholder="Perusahaan / Instansi">
-                <input id="pekerjaan" placeholder="Jabatan (HSE/Fitter/Rigger/dll)">
-                <input id="wa" placeholder="No WhatsApp Aktif">
+                <input id="pekerjaan" placeholder="Jabatan">
+                <input id="wa" placeholder="No WhatsApp">
             </div>
-            <br>
-            <button class="btn" style="width:100%;" onclick="startQuiz()">MASUK KE AREA KERJA</button>
+            <button class="btn" style="width:100%; margin-top:20px;" onclick="startQuiz()">MASUK KE AREA KERJA</button>
         </div>
 
-        <div id="petunjuk" class="card fade-in" style="display:none; text-align:center">
-            <img src="logo.png" class="card-logo" onerror="this.src='https://via.placeholder.com/100/0f172a/f97316?text=PAK+SAFE'">
-            
-            <h2 style="font-weight: 900; color: var(--dark-navy); font-size: 32px;">BRIEFING KESELAMATAN</h2><br>
-            <p style="margin-bottom:35px; font-size: 19px; color: #475569; line-height: 1.8;">Terdapat 30 skenario teknis yang membutuhkan keputusan cepat dan tepat. Jawaban Anda menentukan tingkat risiko kecelakaan di lapangan.</p>
-            <button class="btn" onclick="startRealQuiz()">SAYA MENGERTI, MULAI</button>
-        </div>
-
-        <div id="quiz" class="card fade-in" style="display:none; padding-top: 0; overflow: hidden;">
-            <div class="quiz-header" style="margin: 0 -45px;">
-                <div style="font-weight:900; letter-spacing: 1px; font-size: 18px; color: var(--warning-yellow);">PAK SAFE SIMULATION</div>
-                <div id="qnum" style="background: var(--safety-orange); padding: 6px 15px; border-radius: 10px; font-size: 14px; font-weight: 800;"></div>
+        <div id="quiz" class="card fade-in" style="display:none">
+            <div class="quiz-header">
+                <div style="font-weight:900;">PAK SAFE SIMULATION</div>
+                <div id="qnum" style="background: var(--safety-orange); padding: 5px 12px; border-radius: 8px;"></div>
             </div>
             <div class="progress"><div id="bar" class="bar"></div></div>
             <div class="quiz-body">
-                <div class="quiz-image-container">
-                    <img id="quizImg" src="" alt="Ilustrasi Skenario">
-                </div>
+                <div class="quiz-image-container"><img id="quizImg" src=""></div>
                 <div>
-                    <h3 id="qtext" style="line-height:1.4; margin-bottom:25px; font-size: 24px; color: var(--dark-navy); font-weight: 800;"></h3>
+                    <h3 id="qtext" style="margin-bottom:20px;"></h3>
                     <div id="options"></div>
-                    <div style="display:flex; gap: 15px; margin-top:30px">
-                        <button class="btn" style="background:#64748b; padding:15px; font-size: 16px; flex: 1; box-shadow: none;" onclick="prev()">BACK</button>
-                        <button class="btn" style="padding:15px; font-size: 16px; flex: 2;" onclick="next()">NEXT SCENARIO</button>
+                    <div style="display:flex; gap:10px; margin-top:20px;">
+                        <button class="btn" style="background:#64748b; flex:1;" onclick="prev()">BACK</button>
+                        <button class="btn" style="flex:2;" onclick="next()">NEXT</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="result" class="card fade-in" style="display:none">
-            <div class="result">
-                <p style="text-transform: uppercase; font-weight: 800; color: #64748b; letter-spacing: 3px;">SAFETY PERFORMANCE INDEX</p>
-                <div id="score" class="score"></div>
-                <h2 id="levelText" style="font-weight: 900; font-size: 40px; margin-bottom: 10px;"></h2>
-                <p id="descText" style="margin: 15px 0; color: #475569; font-size: 20px; max-width: 700px; margin-left: auto; margin-right: auto;"></p>
-                
-                <div id="wrongList" class="review-box"></div>
-                
-                <button class="btn" style="background:#22c55e; width: 100%; margin-top: 20px; box-shadow: 0 10px 20px rgba(34,197,94,0.3);" onclick="share()">KIRIM LAPORAN KE WHATSAPP</button>
-                <button class="btn" style="background:var(--dark-navy); margin-top:15px; width: 100%; box-shadow: none;" onclick="location.reload()">RE-START SIMULATION</button>
+        <div id="result" class="card fade-in" style="display:none; text-align:center;">
+            <img src="logo.png" class="card-logo" style="width:80px;" onerror="this.src='https://via.placeholder.com/80/0f172a/f97316?text=PAK+SAFE'">
+            <h2 style="margin-bottom:20px; font-weight:900;">HASIL QUIZ ANDA</h2>
+            <div class="result-box">
+                <div class="result-left">
+                    <p style="color:#64748b; font-weight:700;">SKOR ANDA</p>
+                    <div id="final-score" class="score-val">0%</div>
+                    <p id="correct-count" style="font-weight:600;"></p>
+                </div>
+                <div class="result-right">
+                    <p style="color:#64748b; font-weight:700;">KATEGORI ANDA</p>
+                    <div class="cat-badge">
+                        <span>🛡️</span> <span id="levelText">SAFETY MATURE</span>
+                    </div>
+                </div>
+            </div>
+            <p id="descText" style="margin:25px 0; color:#475569;"></p>
+            <div style="max-width:400px; margin: 0 auto;">
+                <button class="btn btn-whatsapp" onclick="share()">SHARE WHATSAPP</button>
+                <button class="btn btn-retry" onclick="location.reload()">ULANGI QUIZ</button>
+                <button class="btn btn-review" onclick="openModal()">LIHAT PEMBAHASAN SOAL</button>
             </div>
         </div>
+    </div>
+</div>
 
+<div id="review-modal" class="modal">
+    <div class="modal-content">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="font-weight:900;">Analisis Pak Safe</h2>
+            <button onclick="closeModal()" style="border:none; background:none; font-size:30px; cursor:pointer;">&times;</button>
+        </div>
+        <hr style="margin:15px 0;">
+        <div id="review-list"></div>
     </div>
 </div>
 
@@ -199,324 +154,144 @@ let current = 0, answers = [], score = 0;
 const questions = [
     {
         q: "Beban 5 ton mengalami micro-oscillation saat alignment. Tangan harus masuk ke pinch point. Apa kontrol teknis yang memvalidasi 'Zero Energy'?",
-        o: [
-            "A. Penggunaan sarung tangan anti-impact berkualitas tinggi",
-            "B. Memasang mechanical stopper atau blocking bar tersertifikasi",
-            "C. Koordinasi verbal via radio HT dengan operator crane",
-            "D. Menambah durasi pengamatan ayunan hingga berhenti"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Penghalang mekanis fisik adalah satu-satunya cara memastikan energi beban tidak menimpa anggota tubuh jika sistem crane gagal.",
-        img: "pinch-point.jpg"
+        o: ["A. Penggunaan sarung tangan anti-impact", "B. Memasang mechanical stopper tersertifikasi", "C. Koordinasi verbal via radio HT", "D. Menambah durasi pengamatan ayunan"],
+        a: 1, r: "Penghalang mekanis fisik adalah satu-satunya cara memastikan energi beban tidak menimpa anggota tubuh jika sistem crane gagal.", img: "pinch-point.jpg"
     },
     {
-        q: "Dalam pemindahan material 35kg secara manual, risiko terbesar adalah 'static posture'. Bagaimana cara paling efektif memitigasinya?",
-        o: [
-            "A. Melakukan peregangan otot setiap 15 menit sekali",
-            "B. Menerapkan sistem rotasi kerja antar anggota tim",
-            "C. Menggunakan alat bantu mechanical lifter (hidrolik/pegas)",
-            "D. Memperlebar jarak kaki saat mengangkat beban"
-        ],
-        a: 2, // Jawaban C
-        r: "Penjelasan: Alat bantu mekanis menghilangkan beban statis pada tulang belakang yang tidak bisa dihilangkan hanya dengan teknik manual.",
-        img: "manual-handling.jpg"
+        q: "Dalam pemindahan material 35kg manual, risiko terbesar adalah 'static posture'. Mitigasi paling efektif?",
+        o: ["A. Peregangan setiap 15 menit", "B. Sistem rotasi kerja tim", "C. Alat bantu mechanical lifter", "D. Memperlebar jarak kaki"],
+        a: 2, r: "Alat bantu mekanis menghilangkan beban statis pada tulang belakang yang tidak bisa dihilangkan hanya dengan teknik manual.", img: "manual-handling.jpg"
     },
     {
-        q: "Forklift membawa muatan 'oversize' yang menutupi pandangan 100% ke depan. Apa tindakan wajib operator?",
-        o: [
-            "A. Mengemudi secara mundur dengan kecepatan rendah",
-            "B. Mengandalkan sensor kamera tanpa bantuan spotter",
-            "C. Membunyikan klakson secara terus-menerus",
-            "D. Memasang lampu strobo tambahan agar terlihat"
-        ],
-        a: 0, // Jawaban A
-        r: "Penjelasan: Mengemudi mundur adalah standar operasional wajib jika pandangan depan terhalang muatan.",
-        img: "forklift-blindspot.jpg"
+        q: "Forklift muatan 'oversize' menutupi pandangan 100% ke depan. Tindakan wajib operator?",
+        o: ["A. Mengemudi secara mundur", "B. Mengandalkan sensor kamera", "C. Membunyikan klakson terus menerus", "D. Memasang lampu strobo tambahan"],
+        a: 0, r: "Mengemudi mundur adalah standar operasional wajib jika pandangan depan terhalang muatan.", img: "forklift-blindspot.jpg"
     },
     {
-        q: "Pasca sandblasting di confined space, debu silika tetap tinggi. Mengapa respirator N95 tidak memadai?",
-        o: [
-            "A. N95 kurang nyaman digunakan di area yang lembap",
-            "B. Silika butuh filtrasi HEPA (P100) atau Supplied Air",
-            "C. N95 cepat kotor dan sulit untuk dibersihkan",
-            "D. N95 tidak memiliki kemampuan menyaring bau cat"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Debu silika sangat halus. Butuh filter P100 atau suplai udara bersih untuk mencegah silicosis.",
-        img: "respirator.jpg"
+        q: "Pasca sandblasting di confined space, debu silika tinggi. Mengapa respirator N95 tidak memadai?",
+        o: ["A. Kurang nyaman di area lembap", "B. Silika butuh filtrasi HEPA (P100)", "C. N95 sulit dibersihkan", "D. N95 tidak menyaring bau cat"],
+        a: 1, r: "Debu silika sangat halus. Butuh filter P100 atau suplai udara bersih untuk mencegah silicosis.", img: "respirator.jpg"
     },
     {
-        q: "Apa tanggung jawab utama Fire Watch yang melampaui sekadar mengawasi saat Hot Work?",
-        o: [
-            "A. Membantu welder menyiapkan kabel dan mesin las",
-            "B. Pemadaman awal & pantau area 30 menit pasca kerja",
-            "C. Memastikan welder selalu menggunakan faceshield",
-            "D. Membersihkan sisa-sisa kerak (slag) hasil las"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Bara api tersembunyi sering muncul setelah kerja selesai. Pemantauan pasca-las adalah krusial.",
-        img: "fire-watch.jpg"
+        q: "Tanggung jawab utama Fire Watch melampaui pengawasan saat Hot Work?",
+        o: ["A. Membantu welder siapkan kabel", "B. Pemadaman awal & pantau area 30 mnt pasca kerja", "C. Pastikan welder pakai faceshield", "D. Membersihkan sisa kerak las"],
+        a: 1, r: "Bara api tersembunyi sering muncul setelah kerja selesai. Pemantauan pasca-las adalah krusial.", img: "fire-watch.jpg"
     },
     {
-        q: "Bagaimana cara paling efektif mencegah batu gerinda pecah akibat vibrasi pada material tipis?",
-        o: [
-            "A. Menekan mesin gerinda dengan lebih kuat agar stabil",
-            "B. Klem material pada ragum sedekat mungkin dengan titik potong",
-            "C. Menggunakan sarung tangan kain yang tebal",
-            "D. Mengurangi putaran RPM mesin gerinda secara manual"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Klem yang dekat dengan titik kerja meminimalkan vibrasi yang bisa memicu keretakan batu gerinda.",
-        img: "grinding-safe.jpg"
+        q: "Cegah batu gerinda pecah akibat vibrasi pada material tipis?",
+        o: ["A. Tekan mesin lebih kuat", "B. Klem material sedekat mungkin titik potong", "C. Gunakan sarung tangan kain tebal", "D. Kurangi RPM secara manual"],
+        a: 1, r: "Klem yang dekat dengan titik kerja meminimalkan vibrasi yang bisa memicu keretakan batu gerinda.", img: "grinding-safe.jpg"
     },
     {
-        q: "Di mana posisi paling aman bagi rigger saat memegang tag line pada crane swing?",
-        o: [
-            "A. Berdiri tepat di bawah beban agar tarikan lurus",
-            "B. Di luar radius rebah & tidak melilitkan tali ke tangan",
-            "C. Mendekati beban sesering mungkin jika tali kendur",
-            "D. Duduk di atas material pendukung agar tidak lelah"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Rigger harus di luar radius bahaya (line of fire) dan tidak boleh terikat pada tali.",
-        img: "rigger-pos.jpg"
+        q: "Posisi paling aman bagi rigger saat memegang tag line pada crane swing?",
+        o: ["A. Tepat di bawah beban", "B. Di luar radius rebah & tidak melilitkan tali", "C. Mendekati beban jika tali kendur", "D. Duduk di atas material pendukung"],
+        a: 1, r: "Rigger harus di luar radius bahaya (line of fire) dan tidak boleh terikat pada tali.", img: "rigger-pos.jpg"
     },
     {
-        q: "Memindahkan pipa panjang di koridor sempit berisiko jepit. Prinsip Manual Handling apa yang tepat?",
-        o: [
-            "A. Menarik pipa dari arah depan agar jalan terlihat",
-            "B. Menggunakan mechanical roller atau dolly (troli)",
-            "C. Meminta lebih banyak orang memegang tengah pipa",
-            "D. Berjalan secepat mungkin agar beban terasa ringan"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Mechanical roller mengubah gesekan menjadi putaran roda, menghilangkan beban berat dari pekerja.",
-        img: "manual-pipe.jpg"
+        q: "Pipa panjang di koridor sempit berisiko jepit. Prinsip Manual Handling tepat?",
+        o: ["A. Menarik pipa dari depan", "B. Menggunakan mechanical roller/dolly", "C. Tambah orang di tengah pipa", "D. Berjalan secepat mungkin"],
+        a: 1, r: "Mechanical roller mengubah gesekan menjadi putaran roda, menghilangkan beban berat dari pekerja.", img: "manual-pipe.jpg"
     },
     {
-        q: "Mengapa menurunkan fork hingga lantai saat parkir forklift di turunan dianggap vital?",
-        o: [
-            "A. Agar bagian bawah fork tidak mudah karatan",
-            "B. Sebagai jangkar/rem friksi tambahan jika rem gagal",
-            "C. Memudahkan operator untuk naik kembali ke kabin",
-            "D. Menghindari orang tersandung ujung garpu"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Fork yang menempel di lantai berfungsi sebagai rem fisik tambahan mencegah unit meluncur.",
-        img: "forklift-park.jpg"
+        q: "Menurunkan fork hingga lantai saat parkir di turunan vital karena?",
+        o: ["A. Hindari karat bawah fork", "B. Sebagai jangkar/rem friksi tambahan", "C. Memudahkan naik ke kabin", "D. Hindari orang tersandung"],
+        a: 1, r: "Fork yang menempel di lantai berfungsi sebagai rem fisik tambahan mencegah unit meluncur.", img: "forklift-park.jpg"
     },
     {
-        q: "Apa bahaya 'Lethal' di area painting berventilasi terbatas selain bau menyengat?",
-        o: [
-            "A. Warna cat yang cerah menyilaukan mata pekerja",
-            "B. Akumulasi uap mudah terbakar (level LEL tinggi)",
-            "C. Lantai menjadi licin akibat percikan cat",
-            "D. Pakaian kerja menjadi kotor dan sulit dicuci"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Uap solvent di ruang terbatas bisa mencapai titik ledak (LEL) tanpa ventilasi memadai.",
-        img: "painting-hazard.jpg"
+        q: "Bahaya 'Lethal' di area painting berventilasi terbatas?",
+        o: ["A. Warna cat menyilaukan", "B. Akumulasi uap mudah terbakar (LEL)", "C. Lantai licin", "D. Pakaian kotor"],
+        a: 1, r: "Uap solvent di ruang terbatas bisa mencapai titik ledak (LEL) tanpa ventilasi memadai.", img: "painting-hazard.jpg"
     },
     {
-        q: "Lantai grating berisiko Dropped Object. Apa alternatif teknis jika safety net tidak ada?",
-        o: [
-            "A. Mewajibkan semua orang di bawah memakai double helm",
-            "B. Memasang plywood atau plat besi penutup grating",
-            "C. Memberikan tanda peringatan dilarang melintas",
-            "D. Melakukan pekerjaan hanya saat jam istirahat"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Menutup lubang grating secara fisik adalah cara pasti menghentikan benda jatuh ke bawah.",
-        img: "drop-object.jpg"
+        q: "Lantai grating berisiko Dropped Object. Alternatif teknis?",
+        o: ["A. Double helm untuk orang di bawah", "B. Memasang plywood/plat besi penutup", "C. Tanda dilarang melintas", "D. Kerja saat jam istirahat"],
+        a: 1, r: "Menutup lubang grating secara fisik adalah cara pasti menghentikan benda jatuh ke bawah.", img: "drop-object.jpg"
     },
     {
-        q: "Apa indikator utama batu gerinda harus diganti meski ukurannya masih besar?",
-        o: [
-            "A. Warna pada permukaan batu mulai memudar",
-            "B. Terdapat retakan halus (hairline crack) di ring pusat",
-            "C. Permukaan batu terasa hangat setelah digunakan",
-            "D. Label merek pada permukaan batu sudah hilang"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Retakan sekecil rambut bisa menyebabkan batu pecah berkeping-keping saat RPM tinggi.",
-        img: "grinding-disc.jpg"
+        q: "Indikator batu gerinda harus diganti meski ukuran besar?",
+        o: ["A. Warna pudar", "B. Retakan halus (hairline crack) di pusat", "C. Terasa hangat", "D. Label merek hilang"],
+        a: 1, r: "Retakan sekecil rambut bisa menyebabkan batu pecah berkeping-keping saat RPM tinggi.", img: "grinding-disc.jpg"
     },
     {
-        q: "Mengangkat beban dengan punggung melengkung memicu Slip Disc. Mengapa ini terjadi?",
-        o: [
-            "A. Otot perut tidak ditarik dengan cukup kencang",
-            "B. Tekanan asimetris pada bantalan tulang belakang",
-            "C. Sepatu safety yang digunakan terlalu berat",
-            "D. Kurangnya suplai oksigen di area workshop"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Posisi melengkung menekan cakram tulang belakang secara tidak merata (risiko HNP).",
-        img: "back-injury.jpg"
+        q: "Mengapa punggung melengkung saat angkat beban memicu Slip Disc?",
+        o: ["A. Otot perut kendor", "B. Tekanan asimetris bantalan tulang belakang", "C. Sepatu terlalu berat", "D. Kurang oksigen"],
+        a: 1, r: "Posisi melengkung menekan cakram tulang belakang secara tidak merata (risiko HNP).", img: "back-injury.jpg"
     },
     {
-        q: "Mengapa operator dilarang hanya mengandalkan backup alarm saat mundur di workshop bising?",
-        o: [
-            "A. Alarm mundur sering rusak jika terkena air",
-            "B. Pekerja lain mungkin memakai earplug (pelindung telinga)",
-            "C. Bunyi alarm monoton membingungkan arah",
-            "D. Penggunaan alarm menghabiskan daya baterai"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Earplug atau noise tinggi membuat alarm audio tidak efektif tanpa bantuan visual spotter.",
-        img: "noise-area.jpg"
+        q: "Jangan hanya andalkan alarm mundur di workshop bising karena?",
+        o: ["A. Alarm mudah rusak", "B. Pekerja lain mungkin pakai earplug", "C. Bunyi monoton", "D. Boros baterai"],
+        a: 1, r: "Earplug atau noise tinggi membuat alarm audio tidak efektif tanpa bantuan visual spotter.", img: "noise-area.jpg"
     },
     {
-        q: "Mengapa Gas Testing di Confined Space harus dilakukan secara berkala (periodik)?",
-        o: [
-            "A. Memastikan alat detektor gas tidak rusak",
-            "B. Aktivitas kerja mengubah komposisi udara secara dinamis",
-            "C. Agar petugas pengawas tidak mengantuk",
-            "D. Hanya sebagai formalitas pengisian izin kerja"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Proses las/cat terus mengeluarkan gas yang mengubah level oksigen/toksisitas secara dinamis.",
-        img: "gas-test.jpg"
+        q: "Mengapa Gas Testing di Confined Space harus periodik?",
+        o: ["A. Cek alat rusak", "B. Aktivitas mengubah komposisi udara dinamis", "C. Pengawas tidak ngantuk", "D. Formalitas izin"],
+        a: 1, r: "Proses las/cat terus mengeluarkan gas yang mengubah level oksigen/toksisitas secara dinamis.", img: "gas-test.jpg"
     },
     {
-        q: "Melepas guard gerinda untuk sudut sempit adalah Unsafe Act. Apa solusi engineeringnya?",
-        o: [
-            "A. Gunakan diameter lebih kecil atau die grinder",
-            "B. Gunakan tanpa guard asalkan speed rendah",
-            "C. Meminta welder memiringkan material manual",
-            "D. Mengoleskan oli agar proses potong licin"
-        ],
-        a: 0, // Jawaban A
-        r: "Penjelasan: Gunakan alat yang tepat untuk area sempit, jangan pernah memodifikasi alat safety.",
-        img: "die-grinder.jpg"
+        q: "Solusi engineering lepas guard gerinda untuk sudut sempit?",
+        o: ["A. Gunakan diameter kecil / die grinder", "B. Tanpa guard speed rendah", "C. Miringkan material", "D. Pakai oli"],
+        a: 0, r: "Gunakan alat yang tepat untuk area sempit, jangan pernah memodifikasi alat safety.", img: "die-grinder.jpg"
     },
     {
-        q: "Dalam 'Hands-Off Policy', metode 'Separation' mana yang paling efektif saat rigging?",
-        o: [
-            "A. Mengecat rantai rigging dengan warna kontras",
-            "B. Mewajibkan penggunaan sarung tangan kulit",
-            "C. Menggunakan long-handled push pole atau tagline kaku",
-            "D. Menetapkan zona larangan berdiri di dekat crane"
-        ],
-        a: 2, // Jawaban C
-        r: "Penjelasan: Push pole menciptakan jarak fisik antara tubuh dan pinch point beban.",
-        img: "hands-off.jpg"
+        q: "Metode 'Separation' efektif Hands-Off Policy saat rigging?",
+        o: ["A. Cat rantai warna kontras", "B. Pakai sarung tangan kulit", "C. Pakai long-handled push pole", "D. Zona larangan berdiri"],
+        a: 2, r: "Push pole menciptakan jarak fisik antara tubuh dan pinch point beban.", img: "hands-off.jpg"
     },
     {
-        q: "Izin kerja sah, tapi tiba-tiba hujan deras saat rigging. Apa tindakan rigger?",
-        o: [
-            "A. Tetap lanjut kerja karena dokumen sudah sah",
-            "B. Hentikan pekerjaan & re-assessment (SWA)",
-            "C. Minta izin lisan via telepon ke HSE",
-            "D. Mempercepat ritme kerja agar cepat selesai"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Stop Work Authority (SWA) wajib dilakukan jika kondisi lingkungan berubah dari penilaian awal.",
-        img: "rain-work.jpg"
+        q: "Izin kerja sah, tapi hujan deras saat rigging. Tindakan?",
+        o: ["A. Tetap lanjut", "B. Hentikan & re-assessment (SWA)", "C. Izin lisan", "D. Percepat ritme"],
+        a: 1, r: "Stop Work Authority (SWA) wajib dilakukan jika kondisi lingkungan berubah dari penilaian awal.", img: "rain-work.jpg"
     },
     {
-        q: "Blind spot forklift picu kecelakaan. Kontrol administratif paling efektif adalah:",
-        o: [
-            "A. Mewajibkan pejalan kaki memakai rompi hi-vis",
-            "B. Pemisahan jalur pedestrian secara fisik (Segregation)",
-            "C. Menambah jumlah cermin cembung pada unit",
-            "D. Memasang poster peringatan bahaya di dinding"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Pemisahan jalur memastikan manusia dan unit tidak berada di titik yang sama.",
-        img: "segregation.jpg"
+        q: "Kontrol administratif paling efektif blind spot forklift?",
+        o: ["A. Rompi hi-vis", "B. Pemisahan jalur (Segregation)", "C. Tambah cermin", "D. Pasang poster"],
+        a: 1, r: "Pemisahan jalur memastikan manusia dan unit tidak berada di titik yang sama.", img: "segregation.jpg"
     },
     {
-        q: "Apa contoh Housekeeping (5S) yang berdampak langsung pada pencegahan kecelakaan?",
-        o: [
-            "A. Lantai workshop terlihat mengkilap dan mewah",
-            "B. Kabel las/listrik digantung agar tidak trip hazard",
-            "C. Menyusun alat berdasarkan urutan warna pelangi",
-            "D. Membuang sampah setiap 5 menit sekali"
-        ],
-        a: 1, // Jawaban B
-        r: "Penjelasan: Tersandung adalah penyebab kecelakaan tinggi; manajemen kabel sangatlah krusial.",
-        img: "housekeeping.jpg"
+        q: "Contoh Housekeeping (5S) cegah kecelakaan langsung?",
+        o: ["A. Lantai mengkilap", "B. Kabel las/listrik digantung", "C. Susun alat sesuai warna", "D. Buang sampah tiap 5 menit"],
+        a: 1, r: "Tersandung adalah penyebab kecelakaan tinggi; manajemen kabel sangatlah krusial.", img: "housekeeping.jpg"
     }
 ];
 
-function showForm() { 
-    document.getElementById('start').style.display = "none"; 
-    document.getElementById('content-wrapper').style.display = "flex";
-    document.getElementById('form').style.display = "block"; 
-    window.scrollTo(0,0); 
-}
-
-function startQuiz() { 
-    if(!document.getElementById('nama').value || !document.getElementById('asal').value) { 
-        alert("Mohon lengkapi Nama dan Asal Daerah/Perusahaan!"); 
-        return; 
-    } 
-    document.getElementById('form').style.display = "none"; 
-    document.getElementById('petunjuk').style.display = "block"; 
-}
-
-function startRealQuiz() { 
-    document.getElementById('petunjuk').style.display = "none"; 
-    document.getElementById('quiz').style.display = "block"; 
-    show(); 
-}
-
+function showForm() { document.getElementById('start').style.display="none"; document.getElementById('content-wrapper').style.display="flex"; document.getElementById('form').style.display="block"; }
+function startQuiz() { if(!document.getElementById('nama').value) return alert("Isi nama!"); document.getElementById('form').style.display="none"; document.getElementById('quiz').style.display="block"; show(); }
 function show() {
     let q = questions[current];
-    document.getElementById('qnum').innerText = "SKENARIO " + (current + 1) + " / " + questions.length;
+    document.getElementById('qnum').innerText = `SKENARIO ${current + 1} / ${questions.length}`;
     document.getElementById('qtext').innerText = q.q;
-    document.getElementById('bar').style.width = ((current + 1) / questions.length * 100) + "%";
+    document.getElementById('bar').style.width = ((current+1)/questions.length*100) + "%";
     document.getElementById('quizImg').src = q.img;
-
-    let optionsHtml = q.o.map((o, i) => {
-        let selected = answers[current] === i ? "selected" : "";
-        return `<div class="option ${selected}" onclick="choose(${i})">${o}</div>`;
-    }).join("");
-    document.getElementById('options').innerHTML = optionsHtml;
+    document.getElementById('options').innerHTML = q.o.map((o, i) => `<div class="option ${answers[current]===i?'selected':''}" onclick="choose(${i})">${o}</div>`).join("");
 }
-
 function choose(i) { answers[current] = i; show(); }
-
-function next() { 
-    if (answers[current] === undefined) { alert("Pilih satu jawaban!"); return; } 
-    current++; 
-    if (current >= questions.length) finish(); 
-    else {
-        let el = document.getElementById('quiz');
-        el.classList.remove('fade-in');
-        void el.offsetWidth; 
-        el.classList.add('fade-in');
-        show();
-    }
-}
-
-function prev() { if (current > 0) { current--; show(); } }
+function next() { if(answers[current]===undefined) return alert("Pilih jawaban!"); if(++current >= questions.length) finish(); else show(); }
+function prev() { if(current > 0) { current--; show(); } }
 
 function finish() {
     score = answers.filter((a, i) => a === questions[i].a).length;
-    document.getElementById('quiz').style.display = "none";
-    document.getElementById('result').style.display = "block";
-    let p = Math.round(score / questions.length * 100);
-    document.getElementById("score").innerText = p + "%";
+    let p = Math.round(score/questions.length*100);
+    document.getElementById('quiz').style.display="none";
+    document.getElementById('result').style.display="block";
+    document.getElementById('final-score').innerText = p + "%";
+    document.getElementById('correct-count').innerText = `${score} dari ${questions.length} benar`;
+    document.getElementById('levelText').innerText = p >= 80 ? "SAFETY MATURE" : "SAFETY AWARE";
+    document.getElementById('descText').innerText = p >= 80 ? "Bagus! Anda memiliki kesadaran safety yang baik." : "Perlu ditingkatkan lagi wawasan safety-nya.";
     
-    let lvl = p >= 90 ? "SAFETY LEADER" : p >= 70 ? "SAFETY AWARE" : "HIGH RISK";
-    document.getElementById("levelText").innerText = lvl;
-    document.getElementById("levelText").style.color = p >= 90 ? "#22c55e" : p >= 70 ? "#eab308" : "#dc2626";
-    
-    document.getElementById("descText").innerText = p >= 90 ? "Luar biasa! Anda memiliki insting keselamatan kerja yang sangat matang dan siap menjadi teladan." : "Hasil ini menunjukkan perlunya peningkatan pengenalan bahaya di area kerja Anda.";
-
-    let wrongHtml = "";
-    questions.forEach((q, i) => {
-        if(answers[i] !== q.a) {
-            wrongHtml += `<div class="wrong-item"><b>No ${i+1}:</b> ${q.q}<br><i style="color:#dc2626; font-weight:bold;">Jawaban Kurang Tepat.</i> <br><b style="color:#111827">Analisis Pak Safe:</b> ${q.r}</div>`;
-        }
-    });
-    document.getElementById("wrongList").innerHTML = wrongHtml || "<h3 style='text-align:center; color:#22c55e;'>Sempurna! Anda adalah Pahlawan Safety sejati.</h3>";
+    // Render Rationale ke Modal
+    document.getElementById('review-list').innerHTML = questions.map((q, i) => `
+        <div class="review-card">
+            <p><strong>Soal ${i+1}:</strong> ${q.q}</p>
+            <p style="color:${answers[i]===q.a?'green':'red'}">Jawaban Anda: ${q.o[answers[i]]}</p>
+            <div class="rationale-text"><strong>Analisis Pak Safe:</strong> ${q.r}</div>
+        </div>
+    `).join("");
 }
 
+function openModal() { document.getElementById('review-modal').style.display="block"; }
+function closeModal() { document.getElementById('review-modal').style.display="none"; }
 function share() {
-    let n = document.getElementById("nama").value;
-    let text = `*LAPORAN HASIL SIMULASI PAK SAFE*\n\nNama: ${n}\nSkor Safety: ${score}/${questions.length} (${document.getElementById("score").innerText})\nStatus: ${document.getElementById("levelText").innerText}\n\n_Uji insting safety kamu sekarang!_`;
+    let text = `HASIL QUIZ PAK SAFE\nNama: ${document.getElementById('nama').value}\nSkor: ${document.getElementById('final-score').innerText}\nStatus: ${document.getElementById('levelText').innerText}`;
     window.open("https://wa.me/6281212467767?text=" + encodeURIComponent(text));
 }
 </script>
