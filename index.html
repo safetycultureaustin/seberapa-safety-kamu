@@ -13,19 +13,14 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
         /* HERO / HALAMAN JUDUL */
         .hero {
             height: 100vh;
-            width: 100%;
             background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600') center/cover;
             display: flex; align-items: center; justify-content: center;
-            color: #fff; text-align: center; 
-            position: fixed; /* Menggunakan fixed untuk memastikan tidak ada konflik layout */
-            top: 0; left: 0; z-index: 100;
-            transition: opacity 0.5s ease;
+            color: #fff; text-align: center; position: relative;
         }
         .hero-content { max-width: 900px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
@@ -40,22 +35,22 @@
             background: #dc2626; color: #fff; padding: 18px 45px; border: none;
             border-radius: 50px; cursor: pointer; font-weight: 800; font-size: 20px;
             transition: 0.3s; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-            position: relative; z-index: 110;
         }
         .btn:hover { transform: scale(1.05); background: #b91c1c; }
 
         .main-wrapper {
-            display: none; /* Default sembunyi */
-            min-height: 100vh;
-            width: 100%;
+            flex: 1;
+            display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px 20px;
-            position: relative;
-            z-index: 1;
         }
 
-        .container { width: 100%; max-width: 1100px; margin: auto; }
+        .container { 
+            width: 100%;
+            max-width: 1100px; 
+            margin: auto;
+        }
 
         .card { 
             background: #fff; 
@@ -65,7 +60,11 @@
             position: relative;
         }
 
-        .card-logo { width: 80px; margin: 0 auto 20px; display: block; }
+        .card-logo {
+            width: 80px;
+            margin: 0 auto 20px;
+            display: block;
+        }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         input { padding: 18px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; width: 100%; background: #f9fafb; }
@@ -80,14 +79,14 @@
         .quiz-body img { width: 100%; border-radius: 18px; object-fit: cover; border: 1px solid #eee; height: 320px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         
         .option { border: 2px solid #f3f4f6; padding: 20px; border-radius: 16px; margin: 12px 0; cursor: pointer; transition: 0.2s; font-weight: 500; color: #374151; background: #f9fafb; }
-        .option.selected { background: #fee2e2; border-color: #dc2626; color: #991b1b; font-weight: 700; }
+        .option.selected { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
         .option:hover:not(.selected) { border-color: #dc2626; background: #fff; }
 
         .result { text-align: center; }
         .score { font-size: 80px; color: #dc2626; font-weight: 900; margin: 10px 0; }
         .review-box { text-align: left; margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
         .wrong-item { background: #fff1f2; padding: 25px; border-radius: 18px; margin-bottom: 20px; border-left: 8px solid #dc2626; }
-        .wa { background: #22c55e; width: 100%; margin-top: 20px; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); }
+        .wa { background: #22c55e; width: 100%; margin-top: 20px; }
 
         @media (max-width: 850px) {
             .title { font-size: 48px; }
@@ -114,20 +113,20 @@
     </div>
 </div>
 
-<div id="content-wrapper" class="main-wrapper">
+<div id="content-wrapper" class="main-wrapper" style="display:none">
     <div class="container">
         
-        <div id="form-container" class="card" style="display:none">
+        <div id="form" class="card" style="display:none">
             <img src="logo.png" class="card-logo" alt="Logo" onerror="this.style.display='none'">
             <h2 style="text-align:center; margin-bottom:30px; font-weight: 800; color: #111827;">DATA PESERTA</h2>
             <div class="grid">
-                <input id="nama" type="text" placeholder="Nama Lengkap">
-                <input id="asal" type="text" placeholder="Asal Daerah / Perusahaan">
-                <input id="pekerjaan" type="text" placeholder="Pekerjaan">
-                <input id="wa_number" type="tel" placeholder="No WhatsApp (Aktif)">
+                <input id="nama" placeholder="Nama Lengkap">
+                <input id="asal" placeholder="Asal Daerah / Perusahaan">
+                <input id="pekerjaan" placeholder="Pekerjaan">
+                <input id="wa" placeholder="No WhatsApp (Aktif)">
             </div>
             <br>
-            <button class="btn" style="width:100%; margin-top: 10px;" onclick="startToInstruction()">LANJUTKAN</button>
+            <button class="btn" style="width:100%; margin-top: 10px;" onclick="startQuiz()">LANJUTKAN</button>
         </div>
 
         <div id="petunjuk" class="card" style="display:none; text-align:center">
@@ -139,8 +138,8 @@
 
         <div id="quiz" class="card" style="display:none; padding-top: 0; overflow: hidden;">
             <div class="quiz-header" style="margin: 0 -40px;">
-                <div style="font-weight:800; letter-spacing: 1px; padding-left: 40px;">PAK SAFE SIMULATION</div>
-                <div id="qnum" style="background: #dc2626; padding: 4px 12px; border-radius: 8px; font-size: 14px; margin-right: 40px;"></div>
+                <div style="font-weight:800; letter-spacing: 1px;">PAK SAFE SIMULATION</div>
+                <div id="qnum" style="background: #dc2626; padding: 4px 12px; border-radius: 8px; font-size: 14px;"></div>
             </div>
             <div class="progress"><div id="bar" class="bar"></div></div>
             <div class="quiz-body">
@@ -185,42 +184,226 @@ const questions = [
         o: ["Mewajibkan penggunaan sarung tangan anti-impact", "Memasang mechanical stopper/blocking bar yang tersertifikasi", "Koordinasi verbal menggunakan radio HT dengan operator", "Menambah durasi pengamatan ayunan beban"],
         a: 1,
         r: "Ganjal mekanis (stopper/blocking) adalah satu-satunya cara memastikan energi beban tidak menimpa jari jika terjadi kegagalan sistem crane.",
-        img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800"
+        img: "pinch-point.jpg"
     },
     {
         q: "Dalam pemindahan material 35kg secara manual, risiko terbesar bukan hanya berat beban, tetapi 'static posture'. Bagaimana cara memitigasinya secara ergonomis?",
         o: ["Melakukan peregangan otot setiap 15 menit", "Menerapkan rotasi kerja agar beban tidak bertumpu pada satu orang", "Menggunakan alat bantu mechanical lifter dengan sistem pegas/hidrolik", "Memperlebar jarak kaki saat mengangkat"],
         a: 2,
         r: "Alat bantu mekanis menghilangkan beban statis pada tulang belakang (L5-S1) yang tidak bisa dihilangkan hanya dengan teknik angkat squat.",
-        img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800"
+        img: "manual-handling.jpg"
     },
     {
         q: "Forklift membawa muatan 'oversize' yang menutupi pandangan 100% ke depan. Sesuai standar ISO, apa mitigasi primer yang harus dilakukan?",
         o: ["Mengemudi mundur dengan kecepatan maksimal 5 km/jam", "Mengandalkan sensor kamera belakang tanpa spotter", "Membunyikan klakson secara intermiten (putus-putus)", "Memasang lampu strobo tambahan di bagian atas"],
         a: 0,
         r: "Mengemudi mundur adalah standar operasional wajib jika pandangan depan terhalang, guna memastikan line of sight tetap terjaga.",
-        img: "https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=800"
+        img: "forklift-blindspot.jpg"
+    },
+    {
+        q: "Pasca sandblasting di confined space, konsentrasi debu silika tersuspensi tetap tinggi. Mengapa respirator N95 dianggap tidak memadai untuk inspeksi durasi lama?",
+        o: ["Karena N95 tidak nyaman digunakan di area lembap", "Karena debu silika membutuhkan filtrasi HEPA (P100) atau Supplied Air", "Karena N95 cepat kotor dan sulit dibersihkan", "Karena N95 tidak bisa menyaring bau cat"],
+        a: 1,
+        r: "Debu silika sangat halus (mikron). Dibutuhkan filter P100 atau suplai udara bersih untuk mencegah silicosis jangka panjang.",
+        img: "respirator.jpg"
+    },
+    {
+        q: "Hot work dilakukan di area 'High Fire Risk' yang tidak bisa diisolasi total. Apa tanggung jawab utama seorang Fire Watch yang melampaui sekadar mengawasi?",
+        o: ["Membantu welder menyiapkan kabel las", "Melakukan pemadaman awal dan memantau area hingga 30 menit pasca pekerjaan", "Memastikan welder menggunakan faceshield yang benar", "Membersihkan slag hasil pengelasan"],
+        a: 1,
+        r: "Bara api tersembunyi (smoldering fire) sering muncul setelah pekerjaan selesai. Pemantauan pasca-las adalah krusial.",
+        img: "hot-work.jpg"
+    },
+    {
+        q: "Menggerinda material tipis cenderung menimbulkan getaran (chatter). Bagaimana cara mencegah batu gerinda pecah akibat vibrasi berlebih?",
+        o: ["Menekan mesin gerinda sekuat mungkin agar stabil", "Menjepit material pada ragum sedekat mungkin dengan titik potong", "Menggunakan sarung tangan kain yang tebal", "Mengurangi kecepatan putaran mesin secara manual"],
+        a: 1,
+        r: "Klem yang dekat dengan titik kerja meminimalkan vibrasi material yang bisa memicu keretakan pada batu gerinda.",
+        img: "grinding-clamp.jpg"
+    },
+    {
+        q: "Tag line pada crane swing digunakan untuk mengontrol beban. Di mana posisi aman rigger saat memegang tag line tersebut?",
+        o: ["Tepat di bawah beban agar tarikan lurus", "Di luar radius rebah beban dan tidak melilitkan tali ke tangan", "Mendekati beban jika tali mulai terasa kendur", "Duduk di atas material pendukung"],
+        a: 1,
+        r: "Rigger harus di luar radius bahaya dan jangan pernah melilitkan tali ke tubuh (mencegah terseret jika beban jatuh).",
+        img: "tag-line.jpg"
+    },
+    {
+        q: "Pemindahan pipa panjang di koridor sempit sering menyebabkan cedera jepit. Apa prinsip 'Manual Handling' yang paling tepat untuk kasus ini?",
+        o: ["Menarik pipa dari depan agar terlihat arah jalan", "Menggunakan mechanical roller dan memastikan jalur bebas hambatan", "Meminta banyak orang untuk memegang pipa di tengah", "Berjalan secepat mungkin agar beban terasa ringan"],
+        a: 1,
+        r: "Mechanical roller/dolly mengubah gesekan menjadi putaran roda, menghilangkan beban berat dari pekerja.",
+        img: "dolly-transport.jpg"
+    },
+    {
+        q: "Saat memarkir forklift di slope (turunan), mengapa menurunkan fork hingga menyentuh lantai dianggap prosedur keselamatan vital?",
+        o: ["Agar fork tidak karatan terkena udara", "Sebagai jangkar tambahan jika rem mekanis mengalami kegagalan", "Memudahkan operator saat akan naik kembali", "Menghindari orang tersandung fork"],
+        a: 1,
+        r: "Fork yang menempel di lantai berfungsi sebagai rem friksi tambahan untuk mencegah unit meluncur.",
+        img: "forklift-slope.jpg"
+    },
+    {
+        q: "Di area painting dengan ventilasi terbatas, apa bahaya 'Lethal' yang sering diabaikan selain bau menyengat?",
+        o: ["Warna cat yang menyilaukan mata", "Akumulasi uap mudah terbakar (Lower Explosive Limit)", "Lantai yang menjadi lancin karena percikan cat", "Baju kerja yang menjadi kotor"],
+        a: 1,
+        r: "Uap solvent di ruang terbatas bisa mencapai titik ledak (LEL) jika tidak ada sistem ekstraksi udara yang memadai.",
+        img: "chemical-vapor.jpg"
+    },
+    {
+        q: "Pekerjaan di lantai atas grating berisiko 'Dropped Object'. Jika jaring pengaman (safety net) tidak tersedia, apa alternatif teknisnya?",
+        o: ["Mewajibkan pekerja bawah memakai double helm", "Memasang plywood/plat penutup di atas grating area kerja", "Memberi tanda peringatan dilarang lewat", "Melakukan pekerjaan hanya saat jam istirahat"],
+        a: 1,
+        r: "Menutup lubang grating secara fisik adalah satu-satunya cara menghentikan benda kecil (baut/slag) jatuh ke bawah.",
+        img: "welding-height.jpg"
+    },
+    {
+        q: "Apa indikator utama batu gerinda harus segera diganti meskipun ukurannya masih besar?",
+        o: ["Warna batu mulai memudar menjadi abu-abu", "Terdapat 'hairline crack' atau cacat pada bagian center ring", "Batu terasa panas saat disentuh setelah pemakaian", "Label merk pada batu sudah tidak terbaca"],
+        a: 1,
+        r: "Retakan sekecil rambut (hairline crack) bisa menyebabkan batu pecah berkeping-keping saat mencapai RPM tinggi.",
+        img: "grinding-test.jpg"
+    },
+    {
+        q: "Push-pull tool digunakan dalam 'Hands-Off Policy'. Mengapa kebijakan ini sulit diterapkan pada fase final alignment?",
+        o: ["Karena alat bantu kurang estetik", "Kurangnya presisi jika tidak disentuh langsung oleh tangan", "Karena tangan pekerja lebih kuat dari alat bantu", "Karena area kerja terlalu gelap"],
+        a: 1,
+        r: "Presisi sering jadi alasan, namun solusinya adalah modifikasi alat bantu, bukan melanggar Hands-Off Policy.",
+        img: "extension-tool.jpg"
+    },
+    {
+        q: "Mengangkat beban dari lantai dengan posisi 'back-arching' (punggung melengkung) dapat menyebabkan Slip Disc. Apa pemicu utamanya?",
+        o: ["Otot perut yang kurang kencang", "Tekanan asimetris pada bantalan tulang belakang (cakram)", "Sepatu safety yang terlalu berat", "Kandungan oksigen di workshop rendah"],
+        a: 1,
+        r: "Posisi melengkung menekan cakram tulang belakang secara tidak merata, yang bisa memicu saraf terjepit (HNP).",
+        img: "lifting-posture.jpg"
+    },
+    {
+        q: "Mengapa operator forklift dilarang keras mengandalkan 'backup alarm' saja saat mundur di workshop yang bising?",
+        o: ["Karena alarm sering rusak terkena air", "Karena pekerja lain mungkin menggunakan earplug (pelindung telinga)", "Karena bunyi alarm bisa membingungkan arah", "Karena alarm menghabiskan daya baterai"],
+        a: 1,
+        r: "Pekerja di workshop bising sering memakai earplug atau terpapar noise tinggi, sehingga alarm audio tidak efektif tanpa panduan visual spotter.",
+        img: "forklift-reverse.jpg"
+    },
+    {
+        q: "Dalam Confined Space, 'Gas Testing' harus dilakukan secara berkala, bukan hanya di awal. Mengapa?",
+        o: ["Untuk memastikan alat gas detector tidak rusak", "Karena aktivitas kerja (seperti cat/las) bisa mengubah komposisi udara secara dinamis", "Agar petugas gas tester tidak mengantuk", "Untuk memenuhi formalitas dokumen HSE"],
+        a: 1,
+        r: "Proses kerja seperti pengelasan atau pengecatan terus menerus mengeluarkan gas yang bisa mengubah level oksigen/toksisitas.",
+        img: "confined-blower.jpg"
+    },
+    {
+        q: "Fume extractor harus diletakkan maksimal 30cm dari titik pengelasan. Apa konsekuensinya jika jaraknya lebih jauh?",
+        o: ["Alat akan cepat panas", "Daya hisap tidak mampu menarik partikel halus (welding fumes) secara efektif", "Suara alat akan menjadi terlalu bising", "Warna hasil lasan akan menjadi hitam"],
+        a: 1,
+        r: "Daya hisap udara menurun drastis seiring bertambahnya jarak, membuat asap las terhirup oleh welder.",
+        img: "fume-extractor.jpg"
+    },
+    {
+        q: "Melepas guard gerinda untuk menjangkau sudut sempit adalah tindakan 'Unsafe Act'. Apa solusi engineering yang benar?",
+        o: ["Menggunakan gerinda dengan diameter lebih kecil atau die grinder", "Menggunakan gerinda tanpa guard tapi dengan speed rendah", "Meminta welder memegang material dengan posisi miring", "Mengoleskan oli pada area sempit agar licin"],
+        a: 0,
+        r: "Gunakan alat yang tepat untuk area sempit (right tool for the right job), jangan pernah memodifikasi alat safety.",
+        img: "grinding-guard.jpg"
+    },
+    {
+        q: "Saat mengarahkan beban menggunakan chain sling, tangan rigger berisiko masuk ke pinch point antara rantai dan beban. Dalam hirarki kontrol risiko, metode 'Separation' mana yang paling efektif?",
+        o: ["Mengecat rantai dengan warna kontras", "Mewajibkan rigger menggunakan sarung tangan kulit", "Menggunakan long-handled push pole/tagline kaku", "Menetapkan zona larangan berdiri"],
+        a: 2,
+        r: "Separation yang efektif menciptakan jarak fisik antara tubuh dan pinch point menggunakan tongkat bantu (push pole).",
+        img: "push-pull-stick.jpg"
+    },
+    {
+        q: "Otomasi pemindahan beban (conveyor) menghilangkan risiko Manual Handling, namun memunculkan risiko baru, yaitu:",
+        o: ["Risiko tersengat listrik tegangan rendah", "Risiko terjepit pada komponen berputar (nip points)", "Risiko debu dari motor penggerak", "Risiko pekerja menjadi malas"],
+        a: 1,
+        r: "Conveyor memiliki roda gigi dan belt (nip points) yang sangat berbahaya jika tidak diberi guard.",
+        img: "conveyor-system.jpg"
+    },
+    {
+        q: "Beban yang miring saat diangkat crane menunjukkan 'Center of Gravity' (CoG) tidak tepat. Apa risiko fatalnya?",
+        o: ["Beban akan sulit dicat", "Beban dapat meluncur keluar dari sling (sling failure/slip)", "Operator crane akan merasa pusing", "Beban akan terlihat tidak rapi"],
+        a: 1,
+        r: "Ketidakseimbangan CoG menyebabkan beban berayun atau slip dari rigging, yang bisa berakibat fatal.",
+        img: "unbalanced-load.jpg"
+    },
+    {
+        q: "Mengapa penggunaan hard barricade lebih efektif dibanding hanya memasang safety sign pada area blasting?",
+        o: ["Agar area terlihat lebih profesional", "Memberi pembatas fisik yang mencegah orang masuk ke zona bahaya secara tidak sengaja", "Untuk menyimpan peralatan blasting", "Menahan suara bising"],
+        a: 1,
+        r: "Signage bisa diabaikan atau tidak terlihat saat debu tebal, namun barikade fisik menghentikan orang secara langsung.",
+        img: "blasting-barricade.jpg"
+    },
+    {
+        q: "Permit to Work (PTW) sudah ditandatangani, namun kondisi lapangan berubah (hujan deras/angin kencang). Apa tindakan rigger?",
+        o: ["Lanjut kerja karena PTW sudah sah berlaku seharian", "Menghentikan pekerjaan dan melakukan re-assessment (SWA)", "Meminta izin lisan via telepon saja", "Bekerja lebih cepat sebelum hujan makin deras"],
+        a: 1,
+        r: "Stop Work Authority (SWA) wajib dilakukan jika kondisi lingkungan berubah dari penilaian awal di PTW.",
+        img: "work-permit.jpg"
+    },
+    {
+        q: "Kickback pada gerinda tangan paling sering terjadi saat posisi batu gerinda:",
+        o: ["Baru saja dihidupkan", "Terjepit di dalam celah potongan material yang tidak stabil", "Menyentuh permukaan material yang rata", "Ditekan dengan sangat pelan"],
+        a: 1,
+        r: "Material yang tidak stabil dapat menjepit batu gerinda yang berputar, menyebabkan mesin terlempar ke arah operator.",
+        img: "grinding-kickback.jpg"
+    },
+    {
+        q: "Line of Fire pada pekerjaan bolting menggunakan kunci torsi (torque wrench) adalah:",
+        o: ["Arah cahaya lampu di workshop", "Arah lepasan kunci jika baut tiba-tiba patah atau kunci slip", "Posisi baut yang sedang dipasang", "Lantai di bawah area kerja"],
+        a: 1,
+        r: "Pekerja harus memastikan bagian tubuhnya tidak berada di jalur lentingan kunci jika terjadi kegagalan tekanan.",
+        img: "line-of-fire.jpg"
+    },
+    {
+        q: "Lower Back Pain akibat manual handling bersifat kumulatif. Apa maksudnya?",
+        o: ["Terjadi secara mendadak saat mengangkat beban ringan", "Kerusakan kecil yang berulang pada jaringan tubuh hingga menjadi cedera serius", "Hanya terjadi pada pekerja berusia lanjut", "Bisa sembuh total hanya dengan istirahat satu malam"],
+        a: 1,
+        r: "Cedera kumulatif terbangun dari kebiasaan buruk yang dilakukan terus menerus selama berbulan-bulan/tahun.",
+        img: "ergonomic-pain.jpg"
+    },
+    {
+        q: "Blind spot pada forklift sering menyebabkan 'Pedestrian Accident'. Apa kontrol administratif yang paling efektif?",
+        o: ["Mewajibkan pedestrian memakai rompi hi-vis", "Membuat jalur pedestrian yang terpisah secara fisik dari jalur unit", "Menambah jumlah cermin di setiap sudut unit", "Memasang poster keselamatan di setiap dinding"],
+        a: 1,
+        r: "Pemisahan jalur (segregation) adalah cara terbaik untuk memastikan manusia dan unit tidak berada di titik yang sama.",
+        img: "stop-look-listen.jpg"
+    },
+    {
+        q: "Mengetahui arah angin (wind direction) saat terjadi kebocoran gas bertujuan agar kita bisa evakuasi ke arah Crosswind atau Upwind. Mengapa?",
+        o: ["Agar nafas tidak terasa sesak", "Agar kita tidak terbawa arus gas yang mengikuti arah angin", "Agar mudah terlihat oleh tim penyelamat", "Agar tidak berkeringat"],
+        a: 1,
+        r: "Upwind berarti kita berada di posisi asal angin bertiup, sehingga gas menjauh dari posisi kita.",
+        img: "wind-direction.jpg"
+    },
+    {
+        q: "Fire blanket pada pengelasan di ketinggian harus dipasang seperti kantong (pocket). Mengapa?",
+        o: ["Agar terlihat lebih rapi dari bawah", "Untuk menangkap percikan api agar tidak melenting keluar barikade", "Sebagai tempat menyimpan elektroda bekas", "Agar welder tidak merasa kedinginan"],
+        a: 1,
+        r: "Pemasangan datar seringkali tetap membiarkan percikan api melenting (bounce) ke luar area aman.",
+        img: "fire-blanket.jpg"
+    },
+    {
+        q: "Housekeeping (5S) di area kerja bukan hanya soal kebersihan, tapi soal keselamatan. Apa contoh konkretnya?",
+        o: ["Lantai yang mengkilap agar terlihat mewah", "Kabel yang tertata/digantung mencegah risiko tersandung (trip hazard)", "Peralatan yang disusun berdasarkan warna", "Membuang semua sampah setiap 5 menit"],
+        a: 1,
+        r: "Tersandung adalah salah satu penyebab kecelakaan kerja tertinggi di workshop; manajemen kabel sangatlah krusial.",
+        img: "slippery-floor.jpg"
     }
-    // ... Tambahkan soal lainnya di sini mengikuti format yang sama
 ];
 
 function showForm() { 
-    document.getElementById('start').style.opacity = "0";
-    setTimeout(() => {
-        document.getElementById('start').style.display = "none"; 
-        document.getElementById('content-wrapper').style.display = "flex";
-        document.getElementById('form-container').style.display = "block"; 
-    }, 500);
+    document.getElementById('start').style.display = "none"; 
+    document.getElementById('content-wrapper').style.display = "flex";
+    document.getElementById('form').style.display = "block"; 
+    window.scrollTo(0,0); 
 }
 
-function startToInstruction() { 
-    const nama = document.getElementById('nama').value;
-    const asal = document.getElementById('asal').value;
-    if(!nama || !asal) { 
+function startQuiz() { 
+    if(!document.getElementById('nama').value || !document.getElementById('asal').value) { 
         alert("Mohon lengkapi Nama dan Asal Daerah/Perusahaan!"); 
         return; 
     } 
-    document.getElementById('form-container').style.display = "none"; 
+    document.getElementById('form').style.display = "none"; 
     document.getElementById('petunjuk').style.display = "block"; 
 }
 
@@ -263,9 +446,8 @@ function finish() {
     document.getElementById("score").innerText = p + "%";
     
     let lvl = p >= 90 ? "SAFETY LEADER" : p >= 70 ? "SAFETY AWARE" : "HIGH RISK";
-    const levelEl = document.getElementById("levelText");
-    levelEl.innerText = lvl;
-    levelEl.style.color = p >= 90 ? "#22c55e" : p >= 70 ? "#eab308" : "#dc2626";
+    document.getElementById("levelText").innerText = lvl;
+    document.getElementById("levelText").style.color = p >= 90 ? "#22c55e" : p >= 70 ? "#eab308" : "#dc2626";
     
     document.getElementById("descText").innerText = p >= 90 ? "Luar biasa! Anda memiliki insting keselamatan kerja yang sangat matang." : "Terus tingkatkan pengenalan bahaya Anda untuk mencegah insiden kerja.";
 
@@ -280,9 +462,7 @@ function finish() {
 
 function share() {
     let n = document.getElementById("nama").value;
-    let s = document.getElementById("score").innerText;
-    let l = document.getElementById("levelText").innerText;
-    let text = `*Hasil Simulasi Pak Safe*\n\nNama: ${n}\nSkor: ${score}/${questions.length} (${s})\nLevel: ${l}\n\n_Ayo uji insting safety kamu di aplikasi Pak Safe!_`;
+    let text = `*Hasil Simulasi Pak Safe*\n\nNama: ${n}\nSkor: ${score}/${questions.length} (${document.getElementById("score").innerText})\nLevel: ${document.getElementById("levelText").innerText}\n\n_Ayo uji insting safety kamu di aplikasi Pak Safe!_`;
     window.open("https://wa.me/6281212467767?text=" + encodeURIComponent(text));
 }
 </script>
