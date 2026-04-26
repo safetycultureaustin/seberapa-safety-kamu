@@ -24,7 +24,6 @@
         }
         .hero-content { max-width: 900px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
 
-        /* LOGO STYLING */
         .logo-container { width: 140px; height: 140px; margin: 0 auto 20px; }
         .logo-container img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6)); }
 
@@ -39,11 +38,10 @@
         }
         .btn:hover { transform: scale(1.05); background: #b91c1c; }
 
-        /* CONTAINER UTAMA UNTUK CENTER VERTICAL */
         .main-wrapper {
             flex: 1;
             display: flex;
-            align-items: center; /* Center vertikal */
+            align-items: center;
             justify-content: center;
             padding: 40px 20px;
         }
@@ -54,7 +52,6 @@
             margin: auto;
         }
 
-        /* CARD STYLING */
         .card { 
             background: #fff; 
             padding: 40px; 
@@ -63,7 +60,6 @@
             position: relative;
         }
 
-        /* LOGO KECIL DI ATAS FORM/KUIS */
         .card-logo {
             width: 80px;
             margin: 0 auto 20px;
@@ -74,7 +70,6 @@
         input { padding: 18px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; width: 100%; background: #f9fafb; }
         input:focus { border-color: #dc2626; outline: none; background: #fff; }
         
-        /* QUIZ ELEMENTS */
         .quiz-header { background: #111827; color: #fff; padding: 15px 25px; border-radius: 14px 14px 0 0; display: flex; justify-content: space-between; align-items: center; }
         .progress { height: 12px; background: #eee; border-radius: 20px; margin: 20px 0; overflow: hidden; }
         .bar { height: 100%; background: #dc2626; width: 0%; transition: 0.4s; }
@@ -87,7 +82,6 @@
         .option.selected { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
         .option:hover:not(.selected) { border-color: #dc2626; background: #fff; }
 
-        /* RESULT */
         .result { text-align: center; }
         .score { font-size: 80px; color: #dc2626; font-weight: 900; margin: 10px 0; }
         .review-box { text-align: left; margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
@@ -184,437 +178,219 @@
 <script>
 let current = 0, answers = [], score = 0;
 
-// Daftar Soal (Pastikan nama file gambar sesuai dengan yang ada di GitHub Anda)
 const questions = [
-
     {
-
         q: "Beban seberat 5 ton mengalami micro-oscillation saat alignment plate. Tangan harus masuk ke area sempit (pinch point). Apa kontrol teknis yang memvalidasi 'Zero Energy' pada posisi jari?",
-
         o: ["Mewajibkan penggunaan sarung tangan anti-impact", "Memasang mechanical stopper/blocking bar yang tersertifikasi", "Koordinasi verbal menggunakan radio HT dengan operator", "Menambah durasi pengamatan ayunan beban"],
-
         a: 1,
-
         r: "Ganjal mekanis (stopper/blocking) adalah satu-satunya cara memastikan energi beban tidak menimpa jari jika terjadi kegagalan sistem crane.",
-
         img: "pinch-point.jpg"
-
     },
-
     {
-
         q: "Dalam pemindahan material 35kg secara manual, risiko terbesar bukan hanya berat beban, tetapi 'static posture'. Bagaimana cara memitigasinya secara ergonomis?",
-
         o: ["Melakukan peregangan otot setiap 15 menit", "Menerapkan rotasi kerja agar beban tidak bertumpu pada satu orang", "Menggunakan alat bantu mechanical lifter dengan sistem pegas/hidrolik", "Memperlebar jarak kaki saat mengangkat"],
-
         a: 2,
-
         r: "Alat bantu mekanis menghilangkan beban statis pada tulang belakang (L5-S1) yang tidak bisa dihilangkan hanya dengan teknik angkat squat.",
-
         img: "manual-handling.jpg"
-
     },
-
     {
-
         q: "Forklift membawa muatan 'oversize' yang menutupi pandangan 100% ke depan. Sesuai standar ISO, apa mitigasi primer yang harus dilakukan?",
-
         o: ["Mengemudi mundur dengan kecepatan maksimal 5 km/jam", "Mengandalkan sensor kamera belakang tanpa spotter", "Membunyikan klakson secara intermiten (putus-putus)", "Memasang lampu strobo tambahan di bagian atas"],
-
         a: 0,
-
         r: "Mengemudi mundur adalah standar operasional wajib jika pandangan depan terhalang, guna memastikan line of sight tetap terjaga.",
-
         img: "forklift-blindspot.jpg"
-
     },
-
     {
-
         q: "Pasca sandblasting di confined space, konsentrasi debu silika tersuspensi tetap tinggi. Mengapa respirator N95 dianggap tidak memadai untuk inspeksi durasi lama?",
-
         o: ["Karena N95 tidak nyaman digunakan di area lembap", "Karena debu silika membutuhkan filtrasi HEPA (P100) atau Supplied Air", "Karena N95 cepat kotor dan sulit dibersihkan", "Karena N95 tidak bisa menyaring bau cat"],
-
         a: 1,
-
         r: "Debu silika sangat halus (mikron). Dibutuhkan filter P100 atau suplai udara bersih untuk mencegah silicosis jangka panjang.",
-
         img: "respirator.jpg"
-
     },
-
     {
-
         q: "Hot work dilakukan di area 'High Fire Risk' yang tidak bisa diisolasi total. Apa tanggung jawab utama seorang Fire Watch yang melampaui sekadar mengawasi?",
-
         o: ["Membantu welder menyiapkan kabel las", "Melakukan pemadaman awal dan memantau area hingga 30 menit pasca pekerjaan", "Memastikan welder menggunakan faceshield yang benar", "Membersihkan slag hasil pengelasan"],
-
         a: 1,
-
         r: "Bara api tersembunyi (smoldering fire) sering muncul setelah pekerjaan selesai. Pemantauan pasca-las adalah krusial.",
-
         img: "hot-work.jpg"
-
     },
-
     {
-
         q: "Menggerinda material tipis cenderung menimbulkan getaran (chatter). Bagaimana cara mencegah batu gerinda pecah akibat vibrasi berlebih?",
-
         o: ["Menekan mesin gerinda sekuat mungkin agar stabil", "Menjepit material pada ragum sedekat mungkin dengan titik potong", "Menggunakan sarung tangan kain yang tebal", "Mengurangi kecepatan putaran mesin secara manual"],
-
         a: 1,
-
         r: "Klem yang dekat dengan titik kerja meminimalkan vibrasi material yang bisa memicu keretakan pada batu gerinda.",
-
         img: "grinding-clamp.jpg"
-
     },
-
     {
-
         q: "Tag line pada crane swing digunakan untuk mengontrol beban. Di mana posisi aman rigger saat memegang tag line tersebut?",
-
         o: ["Tepat di bawah beban agar tarikan lurus", "Di luar radius rebah beban dan tidak melilitkan tali ke tangan", "Mendekati beban jika tali mulai terasa kendur", "Duduk di atas material pendukung"],
-
         a: 1,
-
         r: "Rigger harus di luar radius bahaya dan jangan pernah melilitkan tali ke tubuh (mencegah terseret jika beban jatuh).",
-
         img: "tag-line.jpg"
-
     },
-
     {
-
         q: "Pemindahan pipa panjang di koridor sempit sering menyebabkan cedera jepit. Apa prinsip 'Manual Handling' yang paling tepat untuk kasus ini?",
-
         o: ["Menarik pipa dari depan agar terlihat arah jalan", "Menggunakan mechanical roller dan memastikan jalur bebas hambatan", "Meminta banyak orang untuk memegang pipa di tengah", "Berjalan secepat mungkin agar beban terasa ringan"],
-
         a: 1,
-
         r: "Mechanical roller/dolly mengubah gesekan menjadi putaran roda, menghilangkan beban berat dari pekerja.",
-
         img: "dolly-transport.jpg"
-
     },
-
     {
-
         q: "Saat memarkir forklift di slope (turunan), mengapa menurunkan fork hingga menyentuh lantai dianggap prosedur keselamatan vital?",
-
         o: ["Agar fork tidak karatan terkena udara", "Sebagai jangkar tambahan jika rem mekanis mengalami kegagalan", "Memudahkan operator saat akan naik kembali", "Menghindari orang tersandung fork"],
-
         a: 1,
-
         r: "Fork yang menempel di lantai berfungsi sebagai rem friksi tambahan untuk mencegah unit meluncur.",
-
         img: "forklift-slope.jpg"
-
     },
-
     {
-
         q: "Di area painting dengan ventilasi terbatas, apa bahaya 'Lethal' yang sering diabaikan selain bau menyengat?",
-
-        o: ["Warna cat yang menyilaukan mata", "Akumulasi uap mudah terbakar (Lower Explosive Limit)", "Lantai yang menjadi licin karena percikan cat", "Baju kerja yang menjadi kotor"],
-
+        o: ["Warna cat yang menyilaukan mata", "Akumulasi uap mudah terbakar (Lower Explosive Limit)", "Lantai yang menjadi lancin karena percikan cat", "Baju kerja yang menjadi kotor"],
         a: 1,
-
         r: "Uap solvent di ruang terbatas bisa mencapai titik ledak (LEL) jika tidak ada sistem ekstraksi udara yang memadai.",
-
         img: "chemical-vapor.jpg"
-
     },
-
     {
-
         q: "Pekerjaan di lantai atas grating berisiko 'Dropped Object'. Jika jaring pengaman (safety net) tidak tersedia, apa alternatif teknisnya?",
-
         o: ["Mewajibkan pekerja bawah memakai double helm", "Memasang plywood/plat penutup di atas grating area kerja", "Memberi tanda peringatan dilarang lewat", "Melakukan pekerjaan hanya saat jam istirahat"],
-
         a: 1,
-
         r: "Menutup lubang grating secara fisik adalah satu-satunya cara menghentikan benda kecil (baut/slag) jatuh ke bawah.",
-
         img: "welding-height.jpg"
-
     },
-
     {
-
         q: "Apa indikator utama batu gerinda harus segera diganti meskipun ukurannya masih besar?",
-
         o: ["Warna batu mulai memudar menjadi abu-abu", "Terdapat 'hairline crack' atau cacat pada bagian center ring", "Batu terasa panas saat disentuh setelah pemakaian", "Label merk pada batu sudah tidak terbaca"],
-
         a: 1,
-
         r: "Retakan sekecil rambut (hairline crack) bisa menyebabkan batu pecah berkeping-keping saat mencapai RPM tinggi.",
-
         img: "grinding-test.jpg"
-
     },
-
     {
-
         q: "Push-pull tool digunakan dalam 'Hands-Off Policy'. Mengapa kebijakan ini sulit diterapkan pada fase final alignment?",
-
         o: ["Karena alat bantu kurang estetik", "Kurangnya presisi jika tidak disentuh langsung oleh tangan", "Karena tangan pekerja lebih kuat dari alat bantu", "Karena area kerja terlalu gelap"],
-
         a: 1,
-
         r: "Presisi sering jadi alasan, namun solusinya adalah modifikasi alat bantu, bukan melanggar Hands-Off Policy.",
-
         img: "extension-tool.jpg"
-
     },
-
     {
-
         q: "Mengangkat beban dari lantai dengan posisi 'back-arching' (punggung melengkung) dapat menyebabkan Slip Disc. Apa pemicu utamanya?",
-
         o: ["Otot perut yang kurang kencang", "Tekanan asimetris pada bantalan tulang belakang (cakram)", "Sepatu safety yang terlalu berat", "Kandungan oksigen di workshop rendah"],
-
         a: 1,
-
         r: "Posisi melengkung menekan cakram tulang belakang secara tidak merata, yang bisa memicu saraf terjepit (HNP).",
-
         img: "lifting-posture.jpg"
-
     },
-
     {
-
         q: "Mengapa operator forklift dilarang keras mengandalkan 'backup alarm' saja saat mundur di workshop yang bising?",
-
         o: ["Karena alarm sering rusak terkena air", "Karena pekerja lain mungkin menggunakan earplug (pelindung telinga)", "Karena bunyi alarm bisa membingungkan arah", "Karena alarm menghabiskan daya baterai"],
-
         a: 1,
-
         r: "Pekerja di workshop bising sering memakai earplug atau terpapar noise tinggi, sehingga alarm audio tidak efektif tanpa panduan visual spotter.",
-
         img: "forklift-reverse.jpg"
-
     },
-
     {
-
         q: "Dalam Confined Space, 'Gas Testing' harus dilakukan secara berkala, bukan hanya di awal. Mengapa?",
-
-        o: ["Untuk memastikan alat gas detector tidak rusak", "Karena aktivitas kerja (seperti cat/las) bisa mengubah komposisi udara secara dinamis", "Agar petugas gas tester tidak mengantuk", "untuk memenuhi formalitas dokumen HSE"],
-
+        o: ["Untuk memastikan alat gas detector tidak rusak", "Karena aktivitas kerja (seperti cat/las) bisa mengubah komposisi udara secara dinamis", "Agar petugas gas tester tidak mengantuk", "Untuk memenuhi formalitas dokumen HSE"],
         a: 1,
-
         r: "Proses kerja seperti pengelasan atau pengecatan terus menerus mengeluarkan gas yang bisa mengubah level oksigen/toksisitas.",
-
         img: "confined-blower.jpg"
-
     },
-
     {
-
         q: "Fume extractor harus diletakkan maksimal 30cm dari titik pengelasan. Apa konsekuensinya jika jaraknya lebih jauh?",
-
         o: ["Alat akan cepat panas", "Daya hisap tidak mampu menarik partikel halus (welding fumes) secara efektif", "Suara alat akan menjadi terlalu bising", "Warna hasil lasan akan menjadi hitam"],
-
         a: 1,
-
         r: "Daya hisap udara menurun drastis seiring bertambahnya jarak, membuat asap las terhirup oleh welder.",
-
         img: "fume-extractor.jpg"
-
     },
-
     {
-
         q: "Melepas guard gerinda untuk menjangkau sudut sempit adalah tindakan 'Unsafe Act'. Apa solusi engineering yang benar?",
-
         o: ["Menggunakan gerinda dengan diameter lebih kecil atau die grinder", "Menggunakan gerinda tanpa guard tapi dengan speed rendah", "Meminta welder memegang material dengan posisi miring", "Mengoleskan oli pada area sempit agar licin"],
-
         a: 0,
-
         r: "Gunakan alat yang tepat untuk area sempit (right tool for the right job), jangan pernah memodifikasi alat safety.",
-
         img: "grinding-guard.jpg"
-
     },
-
     {
-
-        q: "Saat mengarahkan beban menggunakan chain sling, tangan rigger berisiko masuk ke pinch point antara rantai dan beban. Dalam hirarki kontrol risiko, metode 'Separation' mana yang paling efektif tanpa menghilangkan kebutuhan pengendalian arah beban?",
-
-o: [
-"Mengecat rantai dengan warna kontras agar titik jepit lebih mudah terlihat",
-"Mewajibkan rigger menggunakan sarung tangan tahan potong saat memegang rantai",
-"Menggunakan long-handled push pole/tagline kaku untuk menjaga jarak tubuh dari jalur gerak rantai",
-"Menetapkan zona larangan berdiri di sekitar beban saat pengangkatan"
-],
-
-a: 2,
-
-r: "Separation yang efektif menciptakan jarak fisik antara tubuh dan pinch point. Long-handled push pole/tagline kaku memungkinkan kontrol arah beban tanpa tangan mendekati rantai atau titik jepit."
-
+        q: "Saat mengarahkan beban menggunakan chain sling, tangan rigger berisiko masuk ke pinch point antara rantai dan beban. Dalam hirarki kontrol risiko, metode 'Separation' mana yang paling efektif?",
+        o: ["Mengecat rantai dengan warna kontras", "Mewajibkan rigger menggunakan sarung tangan kulit", "Menggunakan long-handled push pole/tagline kaku", "Menetapkan zona larangan berdiri"],
+        a: 2,
+        r: "Separation yang efektif menciptakan jarak fisik antara tubuh dan pinch point menggunakan tongkat bantu (push pole).",
         img: "push-pull-stick.jpg"
-
     },
-
     {
-
         q: "Otomasi pemindahan beban (conveyor) menghilangkan risiko Manual Handling, namun memunculkan risiko baru, yaitu:",
-
         o: ["Risiko tersengat listrik tegangan rendah", "Risiko terjepit pada komponen berputar (nip points)", "Risiko debu dari motor penggerak", "Risiko pekerja menjadi malas"],
-
         a: 1,
-
         r: "Conveyor memiliki roda gigi dan belt (nip points) yang sangat berbahaya jika tidak diberi guard.",
-
         img: "conveyor-system.jpg"
-
     },
-
     {
-
         q: "Beban yang miring saat diangkat crane menunjukkan 'Center of Gravity' (CoG) tidak tepat. Apa risiko fatalnya?",
-
         o: ["Beban akan sulit dicat", "Beban dapat meluncur keluar dari sling (sling failure/slip)", "Operator crane akan merasa pusing", "Beban akan terlihat tidak rapi"],
-
         a: 1,
-
         r: "Ketidakseimbangan CoG menyebabkan beban berayun atau slip dari rigging, yang bisa berakibat fatal.",
-
         img: "unbalanced-load.jpg"
-
     },
-
     {
-
-        q: "Pada gambar terlihat area blasting menghasilkan debu tebal dan potensi proyektil, sementara pekerja lain masih dapat berjalan mendekat. Mengapa penggunaan hard barricade lebih efektif dibanding hanya memasang safety sign pada kondisi tersebut?",
-
-        o: ["Hard barricade berfungsi sebagai referensi visual tambahan agar pekerja tetap fokus pada rambu yang ada", "Hard barricade mengurangi penyebaran debu sehingga pekerja di luar area tetap aman tanpa APD khusus", "Hard barricade menciptakan pengendalian rekayasa yang membatasi pendekatan tidak disengaja saat visibilitas menurun akibat debu blasting", "Hard barricade digunakan untuk menandai lokasi operator blasting agar mudah diawasi oleh pengawas lapangan"],
-
+        q: "Mengapa penggunaan hard barricade lebih efektif dibanding hanya memasang safety sign pada area blasting?",
+        o: ["Agar area terlihat lebih profesional", "Memberi pembatas fisik yang mencegah orang masuk ke zona bahaya secara tidak sengaja", "Untuk menyimpan peralatan blasting", "Menahan suara bising"],
         a: 1,
-
-        r: "Debu blasting menurunkan visibilitas sehingga rambu saja tidak cukup; hard barricade memberi pembatas fisik yang mencegah orang masuk ke zona bahaya proyektil.",
-
+        r: "Signage bisa diabaikan atau tidak terlihat saat debu tebal, namun barikade fisik menghentikan orang secara langsung.",
         img: "blasting-barricade.jpg"
-
     },
-
     {
-
         q: "Permit to Work (PTW) sudah ditandatangani, namun kondisi lapangan berubah (hujan deras/angin kencang). Apa tindakan rigger?",
-
         o: ["Lanjut kerja karena PTW sudah sah berlaku seharian", "Menghentikan pekerjaan dan melakukan re-assessment (SWA)", "Meminta izin lisan via telepon saja", "Bekerja lebih cepat sebelum hujan makin deras"],
-
         a: 1,
-
         r: "Stop Work Authority (SWA) wajib dilakukan jika kondisi lingkungan berubah dari penilaian awal di PTW.",
-
         img: "work-permit.jpg"
-
     },
-
     {
-
         q: "Kickback pada gerinda tangan paling sering terjadi saat posisi batu gerinda:",
-
         o: ["Baru saja dihidupkan", "Terjepit di dalam celah potongan material yang tidak stabil", "Menyentuh permukaan material yang rata", "Ditekan dengan sangat pelan"],
-
         a: 1,
-
         r: "Material yang tidak stabil dapat menjepit batu gerinda yang berputar, menyebabkan mesin terlempar ke arah operator.",
-
         img: "grinding-kickback.jpg"
-
     },
-
     {
-
         q: "Line of Fire pada pekerjaan bolting menggunakan kunci torsi (torque wrench) adalah:",
-
         o: ["Arah cahaya lampu di workshop", "Arah lepasan kunci jika baut tiba-tiba patah atau kunci slip", "Posisi baut yang sedang dipasang", "Lantai di bawah area kerja"],
-
         a: 1,
-
         r: "Pekerja harus memastikan bagian tubuhnya tidak berada di jalur lentingan kunci jika terjadi kegagalan tekanan.",
-
         img: "line-of-fire.jpg"
-
     },
-
     {
-
         q: "Lower Back Pain akibat manual handling bersifat kumulatif. Apa maksudnya?",
-
         o: ["Terjadi secara mendadak saat mengangkat beban ringan", "Kerusakan kecil yang berulang pada jaringan tubuh hingga menjadi cedera serius", "Hanya terjadi pada pekerja berusia lanjut", "Bisa sembuh total hanya dengan istirahat satu malam"],
-
         a: 1,
-
         r: "Cedera kumulatif terbangun dari kebiasaan buruk yang dilakukan terus menerus selama berbulan-bulan/tahun.",
-
         img: "ergonomic-pain.jpg"
-
     },
-
     {
-
         q: "Blind spot pada forklift sering menyebabkan 'Pedestrian Accident'. Apa kontrol administratif yang paling efektif?",
-
         o: ["Mewajibkan pedestrian memakai rompi hi-vis", "Membuat jalur pedestrian yang terpisah secara fisik dari jalur unit", "Menambah jumlah cermin di setiap sudut unit", "Memasang poster keselamatan di setiap dinding"],
-
         a: 1,
-
         r: "Pemisahan jalur (segregation) adalah cara terbaik untuk memastikan manusia dan unit tidak berada di titik yang sama.",
-
         img: "stop-look-listen.jpg"
-
     },
-
     {
-
         q: "Mengetahui arah angin (wind direction) saat terjadi kebocoran gas bertujuan agar kita bisa evakuasi ke arah Crosswind atau Upwind. Mengapa?",
-
         o: ["Agar nafas tidak terasa sesak", "Agar kita tidak terbawa arus gas yang mengikuti arah angin", "Agar mudah terlihat oleh tim penyelamat", "Agar tidak berkeringat"],
-
         a: 1,
-
         r: "Upwind berarti kita berada di posisi asal angin bertiup, sehingga gas menjauh dari posisi kita.",
-
         img: "wind-direction.jpg"
-
     },
-
     {
-
         q: "Fire blanket pada pengelasan di ketinggian harus dipasang seperti kantong (pocket). Mengapa?",
-
         o: ["Agar terlihat lebih rapi dari bawah", "Untuk menangkap percikan api agar tidak melenting keluar barikade", "Sebagai tempat menyimpan elektroda bekas", "Agar welder tidak merasa kedinginan"],
-
         a: 1,
-
         r: "Pemasangan datar seringkali tetap membiarkan percikan api melenting (bounce) ke luar area aman.",
-
         img: "fire-blanket.jpg"
-
     },
-
     {
-
         q: "Housekeeping (5S) di area kerja bukan hanya soal kebersihan, tapi soal keselamatan. Apa contoh konkretnya?",
-
         o: ["Lantai yang mengkilap agar terlihat mewah", "Kabel yang tertata/digantung mencegah risiko tersandung (trip hazard)", "Peralatan yang disusun berdasarkan warna", "Membuang semua sampah setiap 5 menit"],
-
         a: 1,
-
         r: "Tersandung adalah salah satu penyebab kecelakaan kerja tertinggi di workshop; manajemen kabel sangatlah krusial.",
-
         img: "slippery-floor.jpg"
-
     }
-
 ];
 
-// Fungsi Navigasi
 function showForm() { 
     document.getElementById('start').style.display = "none"; 
     document.getElementById('content-wrapper').style.display = "flex";
