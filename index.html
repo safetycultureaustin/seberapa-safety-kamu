@@ -280,10 +280,17 @@ const questions = [
         a: 0, r: "Gunakan alat yang tepat untuk area sempit, jangan pernah memodifikasi alat safety.", img: "die-grinder.jpg"
     },
     {
-        q: "Metode 'Separation' efektif Hands-Off Policy saat rigging?",
-        o: ["A. Cat rantai warna kontras", "B. Pakai sarung tangan kulit", "C. Pakai long-handled push pole", "D. Zona larangan berdiri"],
-        a: 2, r: "Push pole menciptakan jarak fisik antara tubuh dan pinch point beban.", img: "hands-off.jpg"
-    },
+  "q": "Saat rigging dalam kondisi berayun, tindakan apa yang paling tepat memenuhi kriteria metode 'Separation' sesuai dengan Hands-Off Policy?",
+  "o": [
+    "A. Memegang tag line sependek mungkin untuk kontrol maksimal",
+    "B. Mengecat titik angkat dengan warna kontras sebagai penanda",
+    "C. Memakai impact gloves agar aman menahan beban secara langsung",
+    "D. Menggunakan long-handled push pole dari jarak aman"
+  ],
+  "a": 3,
+  "r": "Solusi engineering 'Separation' bertujuan menjaga jarak fisik antara tubuh pekerja dan beban. Push pole bertindak sebagai perpanjangan tangan yang menjauhkan rigger dari titik jepit (pinch point) dan area ayunan beban.",
+  "img": "hands-off-rigging-push-pole.jpg"
+},
     {
         q: "Izin kerja sah, tapi hujan deras saat rigging. Tindakan?",
         o: ["A. Tetap lanjut", "B. Hentikan & re-assessment (SWA)", "C. Izin lisan", "D. Percepat ritme"],
@@ -295,10 +302,17 @@ const questions = [
         a: 1, r: "Pemisahan jalur memastikan manusia dan unit tidak berada di titik yang sama.", img: "forklift-reverse.jpg"
     },
     {
-        q: "Contoh Housekeeping (5S) cegah kecelakaan langsung?",
-        o: ["A. Lantai mengkilap", "B. Kabel las/listrik digantung", "C. Susun alat sesuai warna", "D. Buang sampah tiap 5 menit"],
-        a: 1, r: "Tersandung adalah penyebab kecelakaan tinggi; manajemen kabel sangatlah krusial.", img: "housekeeping.jpg"
-    }
+  q: "Dalam penerapan 5S, tindakan housekeeping mana yang paling signifikan mencegah kecelakaan fatal (LTI) di area fabrikasi?",
+  o: [
+    "A. Memastikan lantai selalu mengkilap dan bebas debu setiap saat",
+    "B. Menerapkan manajemen kabel udara (overhead) untuk kabel las dan trafo",
+    "C. Mengatur posisi tool box agar sejajar estetis dengan garis batas",
+    "D. Melakukan pembuangan limbah sisa material setiap 5 menit sekali"
+  ],
+  a: 1,
+  r: "Bahaya tersandung (trip hazards) adalah penyebab utama kecelakaan di bengkel; mengangkat kabel dari lantai ke jalur udara (overhead) menghilangkan risiko tersebut secara fundamental.",
+  img: "housekeeping-overhead-cables.jpg"
+}
 ];
 
 function showForm() { 
