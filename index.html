@@ -6,37 +6,55 @@
     <title>Pak Safe - Seberapa Safety Kamu</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --safety-orange: #f97316;
+            --dark-navy: #0f172a;
+            --warning-yellow: #fbbf24;
+            --soft-white: #f8fafc;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
         body { 
-            background: #f3f4f6; 
+            background: var(--soft-white); 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
-        /* HERO / HALAMAN JUDUL */
+        /* ANIMASI FADE IN */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HERO SECTION */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600') center/cover;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1600') center/cover;
             display: flex; align-items: center; justify-content: center;
             color: #fff; text-align: center; position: relative;
         }
-        .hero-content { max-width: 900px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .hero-content { max-width: 900px; padding: 20px; }
 
-        .logo-container { width: 140px; height: 140px; margin: 0 auto 20px; }
+        .logo-container { width: 160px; height: 160px; margin: 0 auto 20px; }
         .logo-container img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.6)); }
 
-        .title { font-size: 72px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; line-height: 1; margin-bottom: 10px; }
-        .subtitle { font-size: 42px; font-weight: 900; color: #facc15; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero p { font-size: 20px; opacity: 0.9; margin-bottom: 35px; max-width: 650px; line-height: 1.5; }
+        .title { font-size: 80px; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; line-height: 0.9; margin-bottom: 10px; }
+        .subtitle { font-size: 42px; font-weight: 900; color: var(--warning-yellow); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
 
         .btn {
-            background: #dc2626; color: #fff; padding: 18px 45px; border: none;
-            border-radius: 50px; cursor: pointer; font-weight: 800; font-size: 20px;
-            transition: 0.3s; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+            background: var(--safety-orange); color: #fff; padding: 20px 50px; border: none;
+            border-radius: 12px; cursor: pointer; font-weight: 800; font-size: 22px;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+            text-transform: uppercase;
         }
-        .btn:hover { transform: scale(1.05); background: #b91c1c; }
+        .btn:hover { transform: translateY(-3px); background: #ea580c; box-shadow: 0 15px 25px rgba(249, 115, 22, 0.4); }
 
         .main-wrapper {
             flex: 1;
@@ -46,129 +64,116 @@
             padding: 40px 20px;
         }
 
-        .container { 
-            width: 100%;
-            max-width: 1100px; 
-            margin: auto;
-        }
+        .container { width: 100%; max-width: 1100px; margin: auto; }
 
         .card { 
             background: #fff; 
-            padding: 40px; 
-            border-radius: 24px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
-            position: relative;
-        }
-
-        .card-logo {
-            width: 80px;
-            margin: 0 auto 20px;
-            display: block;
+            padding: 45px; 
+            border-radius: 28px; 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); 
+            border-top: 8px solid var(--safety-orange);
         }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        input { padding: 18px; border-radius: 12px; border: 1px solid #ddd; font-size: 16px; width: 100%; background: #f9fafb; }
-        input:focus { border-color: #dc2626; outline: none; background: #fff; }
+        input { padding: 18px; border-radius: 12px; border: 2px solid #e2e8f0; font-size: 16px; width: 100%; background: #f8fafc; transition: 0.3s; }
+        input:focus { border-color: var(--safety-orange); outline: none; background: #fff; }
         
-        .quiz-header { background: #111827; color: #fff; padding: 15px 25px; border-radius: 14px 14px 0 0; display: flex; justify-content: space-between; align-items: center; }
-        .progress { height: 12px; background: #eee; border-radius: 20px; margin: 20px 0; overflow: hidden; }
-        .bar { height: 100%; background: #dc2626; width: 0%; transition: 0.4s; }
+        /* QUIZ UI */
+        .quiz-header { background: var(--dark-navy); color: #fff; padding: 20px 30px; border-radius: 14px 14px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .progress { height: 14px; background: #e2e8f0; border-radius: 20px; margin: 25px 0; overflow: hidden; }
+        .bar { height: 100%; background: var(--warning-yellow); width: 0%; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        .quiz-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; align-items: start; }
-        .quiz-image-container { width: 100%; }
-        .quiz-body img { width: 100%; border-radius: 18px; object-fit: cover; border: 1px solid #eee; height: 320px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .quiz-body { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; margin-top: 20px; }
+        .quiz-image-container img { width: 100%; border-radius: 20px; object-fit: cover; height: 380px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 4px solid #f1f5f9; }
         
-        .option { border: 2px solid #f3f4f6; padding: 20px; border-radius: 16px; margin: 12px 0; cursor: pointer; transition: 0.2s; font-weight: 500; color: #374151; background: #f9fafb; }
-        .option.selected { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
-        .option:hover:not(.selected) { border-color: #dc2626; background: #fff; }
+        .option { border: 2px solid #f1f5f9; padding: 22px; border-radius: 18px; margin: 14px 0; cursor: pointer; transition: 0.2s; font-weight: 600; color: #1e293b; background: #f8fafc; font-size: 17px; }
+        .option.selected { background: #fff7ed; border-color: var(--safety-orange); color: #9a3412; transform: translateX(10px); }
+        .option:hover:not(.selected) { border-color: var(--safety-orange); background: #fff; }
 
         .result { text-align: center; }
-        .score { font-size: 80px; color: #dc2626; font-weight: 900; margin: 10px 0; }
-        .review-box { text-align: left; margin-top: 40px; border-top: 2px solid #eee; padding-top: 30px; }
-        .wrong-item { background: #fff1f2; padding: 25px; border-radius: 18px; margin-bottom: 20px; border-left: 8px solid #dc2626; }
-        .wa { background: #22c55e; width: 100%; margin-top: 20px; }
+        .score { font-size: 100px; color: var(--safety-orange); font-weight: 900; margin: 5px 0; line-height: 1; }
+        .review-box { text-align: left; margin-top: 40px; border-top: 2px solid #f1f5f9; padding-top: 30px; }
+        .wrong-item { background: #fff7ed; padding: 25px; border-radius: 20px; margin-bottom: 20px; border-left: 10px solid var(--safety-orange); }
 
+        /* KHUSUS TIKTOK RESPONSIVE */
         @media (max-width: 850px) {
-            .title { font-size: 48px; }
+            .title { font-size: 52px; }
             .subtitle { font-size: 28px; }
             .quiz-body { grid-template-columns: 1fr; }
-            .quiz-body img { height: auto; }
+            .quiz-image-container img { height: 280px; }
             .grid { grid-template-columns: 1fr; }
-            .main-wrapper { padding: 20px 15px; }
-            .card { padding: 25px; }
+            .card { padding: 25px; border-radius: 20px; }
+            .btn { width: 100%; font-size: 18px; }
         }
     </style>
 </head>
 <body>
 
-<div id="start" class="hero">
+<div id="start" class="hero fade-in">
     <div class="hero-content">
         <div class="logo-container">
-            <img src="logo.png" alt="Logo Pak Safe" onerror="this.src='https://via.placeholder.com/140?text=Pak+Safe'">
+            <img src="logo.png" alt="Logo Pak Safe" onerror="this.src='https://via.placeholder.com/160/0f172a/f97316?text=PAK+SAFE'">
         </div>
         <div class="title">PAK SAFE</div>
         <div class="subtitle">SEBERAPA SAFETY KAMU?</div>
-        <p>Latih insting dan pengetahuan HSE Anda melalui simulasi skenario teknis industri bersama Pak Safe.</p>
-        <button class="btn" onclick="showForm()">START QUIZ →</button>
+        <p style="font-size: 20px; opacity: 0.9; margin-bottom: 40px; max-width: 650px; line-height: 1.6; margin-left: auto; margin-right: auto;">Latih insting HSE Anda melalui simulasi skenario teknis industri paling kritis bersama Pak Safe.</p>
+        <button class="btn" onclick="showForm()">START SIMULATION →</button>
     </div>
 </div>
 
 <div id="content-wrapper" class="main-wrapper" style="display:none">
     <div class="container">
         
-        <div id="form" class="card" style="display:none">
-            <img src="logo.png" class="card-logo" alt="Logo" onerror="this.style.display='none'">
-            <h2 style="text-align:center; margin-bottom:30px; font-weight: 800; color: #111827;">DATA PESERTA</h2>
+        <div id="form" class="card fade-in" style="display:none">
+            <h2 style="text-align:center; margin-bottom:30px; font-weight: 900; color: var(--dark-navy); font-size: 32px;">REGISTRASI PESERTA</h2>
             <div class="grid">
                 <input id="nama" placeholder="Nama Lengkap">
-                <input id="asal" placeholder="Asal Daerah / Perusahaan">
-                <input id="pekerjaan" placeholder="Pekerjaan">
-                <input id="wa" placeholder="No WhatsApp (Aktif)">
+                <input id="asal" placeholder="Perusahaan / Instansi">
+                <input id="pekerjaan" placeholder="Jabatan (HSE/Fitter/Rigger/dll)">
+                <input id="wa" placeholder="No WhatsApp Aktif">
             </div>
             <br>
-            <button class="btn" style="width:100%; margin-top: 10px;" onclick="startQuiz()">LANJUTKAN</button>
+            <button class="btn" style="width:100%;" onclick="startQuiz()">MASUK KE AREA KERJA</button>
         </div>
 
-        <div id="petunjuk" class="card" style="display:none; text-align:center">
-            <img src="logo.png" class="card-logo" alt="Logo" onerror="this.style.display='none'">
-            <h2 style="font-weight: 800; color: #111827;">PETUNJUK KUIS</h2><br>
-            <p style="margin-bottom:30px; font-size: 18px; color: #4b5563; line-height: 1.6;">Kuis terdiri dari 30 soal skenario teknis HSE. Pilih satu jawaban yang paling tepat untuk meminimalisir risiko kecelakaan kerja.</p>
-            <button class="btn" onclick="startRealQuiz()">SAYA SIAP, MULAI SEKARANG</button>
+        <div id="petunjuk" class="card fade-in" style="display:none; text-align:center">
+            <h2 style="font-weight: 900; color: var(--dark-navy); font-size: 32px;">BRIEFING KESELAMATAN</h2><br>
+            <p style="margin-bottom:35px; font-size: 19px; color: #475569; line-height: 1.8;">Terdapat 30 skenario teknis yang membutuhkan keputusan cepat dan tepat. Jawaban Anda menentukan tingkat risiko kecelakaan di lapangan.</p>
+            <button class="btn" onclick="startRealQuiz()">SAYA MENGERTI, MULAI</button>
         </div>
 
-        <div id="quiz" class="card" style="display:none; padding-top: 0; overflow: hidden;">
-            <div class="quiz-header" style="margin: 0 -40px;">
-                <div style="font-weight:800; letter-spacing: 1px;">PAK SAFE SIMULATION</div>
-                <div id="qnum" style="background: #dc2626; padding: 4px 12px; border-radius: 8px; font-size: 14px;"></div>
+        <div id="quiz" class="card fade-in" style="display:none; padding-top: 0; overflow: hidden;">
+            <div class="quiz-header" style="margin: 0 -45px;">
+                <div style="font-weight:900; letter-spacing: 1px; font-size: 18px; color: var(--warning-yellow);">PAK SAFE SIMULATION</div>
+                <div id="qnum" style="background: var(--safety-orange); padding: 6px 15px; border-radius: 10px; font-size: 14px; font-weight: 800;"></div>
             </div>
             <div class="progress"><div id="bar" class="bar"></div></div>
             <div class="quiz-body">
                 <div class="quiz-image-container">
-                    <img id="quizImg" src="" alt="Ilustrasi Soal">
+                    <img id="quizImg" src="" alt="Ilustrasi Skenario">
                 </div>
                 <div>
-                    <h3 id="qtext" style="line-height:1.4; margin-bottom:20px; font-size: 22px; color: #111827; font-weight: 700;"></h3>
+                    <h3 id="qtext" style="line-height:1.4; margin-bottom:25px; font-size: 24px; color: var(--dark-navy); font-weight: 800;"></h3>
                     <div id="options"></div>
-                    <div style="display:flex; gap: 15px; margin-top:25px">
-                        <button class="btn" style="background:#6b7280; padding:15px; font-size: 16px; flex: 1; box-shadow: none;" onclick="prev()">KEMBALI</button>
-                        <button class="btn" style="padding:15px; font-size: 16px; flex: 2;" onclick="next()">BERIKUTNYA</button>
+                    <div style="display:flex; gap: 15px; margin-top:30px">
+                        <button class="btn" style="background:#64748b; padding:15px; font-size: 16px; flex: 1; box-shadow: none;" onclick="prev()">BACK</button>
+                        <button class="btn" style="padding:15px; font-size: 16px; flex: 2;" onclick="next()">NEXT SCENARIO</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="result" class="card" style="display:none">
-            <img src="logo.png" class="card-logo" alt="Logo" onerror="this.style.display='none'">
+        <div id="result" class="card fade-in" style="display:none">
             <div class="result">
-                <p style="text-transform: uppercase; font-weight: 700; color: #6b7280; letter-spacing: 2px;">Skor Keamanan Anda</p>
+                <p style="text-transform: uppercase; font-weight: 800; color: #64748b; letter-spacing: 3px;">SAFETY PERFORMANCE INDEX</p>
                 <div id="score" class="score"></div>
-                <h2 id="levelText" style="font-weight: 900; font-size: 32px; margin-bottom: 10px;"></h2>
-                <p id="descText" style="margin: 15px 0; color: #4b5563; font-size: 18px;"></p>
+                <h2 id="levelText" style="font-weight: 900; font-size: 40px; margin-bottom: 10px;"></h2>
+                <p id="descText" style="margin: 15px 0; color: #475569; font-size: 20px; max-width: 700px; margin-left: auto; margin-right: auto;"></p>
                 
                 <div id="wrongList" class="review-box"></div>
                 
-                <button class="btn wa" onclick="share()">KIRIM HASIL KE WHATSAPP</button>
-                <button class="btn" style="background:#4b5563; margin-top:15px; width: 100%; box-shadow: none;" onclick="location.reload()">ULANGI TES</button>
+                <button class="btn" style="background:#22c55e; width: 100%; margin-top: 20px; box-shadow: 0 10px 20px rgba(34,197,94,0.3);" onclick="share()">KIRIM LAPORAN KE WHATSAPP</button>
+                <button class="btn" style="background:var(--dark-navy); margin-top:15px; width: 100%; box-shadow: none;" onclick="location.reload()">RE-START SIMULATION</button>
             </div>
         </div>
 
@@ -176,6 +181,7 @@
 </div>
 
 <script>
+// Logika script tetap sama seperti yang Bapak inginkan (tidak merubah soal/jawaban)
 let current = 0, answers = [], score = 0;
 
 const questions = [
@@ -415,7 +421,7 @@ function startRealQuiz() {
 
 function show() {
     let q = questions[current];
-    document.getElementById('qnum').innerText = "Soal " + (current + 1) + " / " + questions.length;
+    document.getElementById('qnum').innerText = "SKENARIO " + (current + 1) + " / " + questions.length;
     document.getElementById('qtext').innerText = q.q;
     document.getElementById('bar').style.width = ((current + 1) / questions.length * 100) + "%";
     document.getElementById('quizImg').src = q.img;
@@ -433,7 +439,13 @@ function next() {
     if (answers[current] === undefined) { alert("Pilih satu jawaban!"); return; } 
     current++; 
     if (current >= questions.length) finish(); 
-    else show(); 
+    else {
+        let el = document.getElementById('quiz');
+        el.classList.remove('fade-in');
+        void el.offsetWidth; // trigger reflow
+        el.classList.add('fade-in');
+        show();
+    }
 }
 
 function prev() { if (current > 0) { current--; show(); } }
@@ -449,20 +461,20 @@ function finish() {
     document.getElementById("levelText").innerText = lvl;
     document.getElementById("levelText").style.color = p >= 90 ? "#22c55e" : p >= 70 ? "#eab308" : "#dc2626";
     
-    document.getElementById("descText").innerText = p >= 90 ? "Luar biasa! Anda memiliki insting keselamatan kerja yang sangat matang." : "Terus tingkatkan pengenalan bahaya Anda untuk mencegah insiden kerja.";
+    document.getElementById("descText").innerText = p >= 90 ? "Luar biasa! Anda memiliki insting keselamatan kerja yang sangat matang dan siap menjadi teladan." : "Hasil ini menunjukkan perlunya peningkatan pengenalan bahaya di area kerja Anda.";
 
     let wrongHtml = "";
     questions.forEach((q, i) => {
         if(answers[i] !== q.a) {
-            wrongHtml += `<div class="wrong-item"><b>No ${i+1}:</b> ${q.q}<br><i style="color:#dc2626; font-weight:bold;">Salah.</i> <br><b style="color:#111827">Solusi Pak Safe:</b> ${q.r}</div>`;
+            wrongHtml += `<div class="wrong-item"><b>No ${i+1}:</b> ${q.q}<br><i style="color:#dc2626; font-weight:bold;">Jawaban Kurang Tepat.</i> <br><b style="color:#111827">Analisis Pak Safe:</b> ${q.r}</div>`;
         }
     });
-    document.getElementById("wrongList").innerHTML = wrongHtml || "<h3 style='text-align:center; color:#22c55e;'>Sempurna! Anda menjawab semua dengan benar.</h3>";
+    document.getElementById("wrongList").innerHTML = wrongHtml || "<h3 style='text-align:center; color:#22c55e;'>Sempurna! Anda adalah Pahlawan Safety sejati.</h3>";
 }
 
 function share() {
     let n = document.getElementById("nama").value;
-    let text = `*Hasil Simulasi Pak Safe*\n\nNama: ${n}\nSkor: ${score}/${questions.length} (${document.getElementById("score").innerText})\nLevel: ${document.getElementById("levelText").innerText}\n\n_Ayo uji insting safety kamu di aplikasi Pak Safe!_`;
+    let text = `*LAPORAN HASIL SIMULASI PAK SAFE*\n\nNama: ${n}\nSkor Safety: ${score}/${questions.length} (${document.getElementById("score").innerText})\nStatus: ${document.getElementById("levelText").innerText}\n\n_Uji insting safety kamu sekarang!_`;
     window.open("https://wa.me/6281212467767?text=" + encodeURIComponent(text));
 }
 </script>
