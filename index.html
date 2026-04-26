@@ -73,8 +73,8 @@
         </div>
         <div class="title">PAK SAFE</div>
         <div class="subtitle">SEBERAPA SAFETY KAMU?</div>
-        <p>Latih diri Anda mengambil keputusan kerja dengan risiko paling rendah bersama Pak Safe.</p>
-        <button class="btn" onclick="showForm()">START QUIZ →</button>
+        <p>Uji kompetensi dan insting keselamatan kerja Anda dalam skenario nyata industri bersama Pak Safe.</p>
+        <button class="btn" onclick="showForm()">MULAI SIMULASI →</button>
     </div>
 </div>
 
@@ -83,16 +83,16 @@
         <h2 style="text-align:center; margin-bottom:20px">DATA PESERTA</h2>
         <div class="grid">
             <input id="nama" placeholder="Nama Lengkap">
-            <input id="asal" placeholder="Asal Daerah">
-            <input id="pekerjaan" placeholder="Pekerjaan">
-            <input id="wa" placeholder="No WhatsApp (Aktif)">
+            <input id="asal" placeholder="Asal Perusahaan/Daerah">
+            <input id="pekerjaan" placeholder="Jabatan/Pekerjaan">
+            <input id="wa" placeholder="No WhatsApp">
         </div>
-        <br><button class="btn" style="width:100%" onclick="startQuiz()">LANJUTKAN</button>
+        <br><button class="btn" style="width:100%" onclick="startQuiz()">KONFIRMASI DATA</button>
     </div>
 
     <div id="petunjuk" class="card" style="display:none; text-align:center">
         <h2>PETUNJUK KUIS</h2><br>
-        <p style="margin-bottom:20px; font-size: 18px;">Kuis terdiri dari 30 soal skenario teknis. Pilih satu jawaban yang menurut Anda paling aman (Safety).</p>
+        <p style="margin-bottom:20px; font-size: 18px;">Kuis terdiri dari 30 soal skenario teknis. Pilih satu jawaban yang memiliki tingkat risiko paling rendah sesuai standar HSE internasional.</p>
         <button class="btn" onclick="startRealQuiz()">SAYA SIAP, MULAI SEKARANG</button>
     </div>
 
@@ -132,49 +132,49 @@ let current = 0, answers = [], score = 0;
 
 const questions = [
     {
-        q: "Saat melakukan alignment plate menggunakan crane, beban masih mengalami micro movement dan tangan Anda harus berada di area sempit. Apa langkah paling safety?",
-        o: ["Memberikan aba-aba suara keras kepada operator", "Menggunakan alat bantu (shifter/taper pin)", "Menjaga jarak aman tangan minimal 30cm", "Menunggu hingga beban benar-benar diam"],
-        a: 1, // Sekarang jawabannya B
-        r: "Alat bantu (shifter) menjauhkan tangan dari pinch point (titik jepit).",
+        q: "Saat melakukan alignment plate menggunakan crane, beban masih mengalami micro movement dan tangan Anda harus masuk ke area sempit. Apa pengendalian teknis terbaik?",
+        o: ["Memberikan aba-aba suara keras kepada operator", "Menggunakan alat bantu (shifter/taper pin) agar tangan tetap di luar", "Menjaga jarak aman tangan minimal 30cm dari beban", "Meningkatkan konsentrasi dan bekerja dengan sangat perlahan"],
+        a: 1,
+        r: "Gunakan alat bantu (shifter) untuk menjauhkan anggota tubuh dari pinch point (titik jepit).",
         img: "pinch-point.jpg"
     },
     {
-        q: "Terdapat material seberat 35kg yang harus dipindahkan ke meja kerja jarak 5 meter. Apa tindakan terbaik?",
-        o: ["Menggunakan trolley atau mechanical aid", "Mengangkat bersama satu rekan kerja", "Menerapkan teknik manual handling (tekuk lutut)", "Memindahkan material secara bertahap"],
-        a: 0, // Sekarang jawabannya A
-        r: "Beban di atas 20kg sebaiknya menggunakan bantuan mekanis.",
+        q: "Terdapat material seberat 35kg yang harus dipindahkan ke meja kerja berjarak 5 meter. Sesuai standar HSE, apa tindakan yang paling tepat?",
+        o: ["Menerapkan teknik squat (tekuk lutut) saat mengangkat sendiri", "Menggunakan bantuan satu rekan untuk mengangkat berdua", "Menggunakan alat bantu mekanis seperti trolley atau dolly", "Memindahkan material secara bertahap agar tidak terlalu berat"],
+        a: 2,
+        r: "Beban di atas batas angkat aman (20-25kg) wajib menggunakan bantuan mekanis untuk mencegah cedera tulang belakang.",
         img: "manual-handling.jpg"
     },
     {
-        q: "Forklift membawa muatan tinggi yang menghalangi pandangan operator di area ramai. Apa prosedur paling tepat?",
-        o: ["Memastikan area kerja dikosongkan", "Memberikan aba-aba klakson terus menerus", "Menjaga jarak aman minimal 3 meter", "Menugaskan seorang spotter/pemandu jalan"],
-        a: 3, // Sekarang jawabannya D
-        r: "Spotter berfungsi sebagai 'mata tambahan' operator.",
+        q: "Forklift membawa muatan tinggi yang menghalangi pandangan operator ke arah depan di area workshop yang ramai. Apa prosedur yang wajib dilakukan?",
+        o: ["Memastikan klakson dibunyikan terus menerus selama jalan", "Membuka jendela kabin dan berteriak memberi peringatan", "Menjaga kecepatan di bawah 5 km/jam agar bisa berhenti mendadak", "Menugaskan spotter atau mengemudikan forklift secara mundur"],
+        a: 3,
+        r: "Jika pandangan depan terhalang muatan, operator wajib jalan mundur atau dipandu oleh spotter yang kompeten.",
         img: "forklift-blindspot.jpg"
     },
     {
-        q: "Setelah sandblasting selesai, debu halus masih pekat. Jika Anda harus masuk untuk pengecekan, apa yang paling safety?",
-        o: ["Menunggu 30 menit hingga debu mengendap", "Menggunakan respirator filter partikulat (N95/P100)", "Menggunakan masker kain standar", "Melakukan pengecekan dengan sangat cepat"],
-        a: 1, // Sekarang jawabannya B
-        r: "Hanya respirator khusus yang bisa menyaring debu silika halus.",
+        q: "Setelah sandblasting selesai, debu halus masih pekat di udara. Jika Anda harus melakukan inspeksi mendadak, respirator apa yang wajib digunakan?",
+        o: ["Masker bedah medis atau masker kain dua lapis", "Respirator dengan filter partikulat (N95/P100) yang terpasang rapat", "Respirator dengan cartridge kimia warna kuning", "Menahan napas dan melakukan inspeksi secepat mungkin"],
+        a: 1,
+        r: "Debu silika hasil blasting berukuran mikron dan hanya bisa disaring oleh respirator filter partikulat yang telah fit-test.",
         img: "respirator.jpg"
     },
     {
-        q: "Anda harus melakukan welding di dekat material mudah terbakar yang tidak bisa dipindahkan. Apa langkahnya?",
-        o: ["Menempatkan Fire Watch dan fire blanket", "Memindahkan arah percikan las", "Mengawasi area secara berkala", "Menyelesaikan welding secepat mungkin"],
-        a: 0, // Sekarang jawabannya A
-        r: "Kombinasi fire blanket dan Fire Watch adalah standar emas.",
+        q: "Anda harus melakukan welding di dekat tumpukan material mudah terbakar yang tidak bisa dipindahkan. Apa mitigasi risiko paling efektif?",
+        o: ["Menempatkan Fire Watch dengan APAR siap pakai dan memasang fire blanket", "Menyiram area sekitar dengan air sebelum memulai pengelasan", "Menunjuk rekan kerja untuk melihat dari jauh jika ada api", "Menggunakan arus las rendah agar percikan api tidak terlalu jauh"],
+        a: 0,
+        r: "Kombinasi isolasi fisik (fire blanket) dan pengawasan aktif (Fire Watch) adalah standar wajib hot work berisiko tinggi.",
         img: "hot-work.jpg"
     },
     {
-        q: "Saat grinding material kecil yang sulit dipegang, risiko tangan terkena batu gerinda tinggi. Bagaimana solusinya?",
-        o: ["Memegang material dengan sangat kuat", "Menggunakan sarung tangan kulit tebal", "Meminta rekan kerja memegang pakai tang", "Menjepit material pada ragum (clamp)"],
-        a: 3, // Sekarang jawabannya D
-        r: "Gunakan ragum untuk menjauhkan tangan dari putaran mesin.",
+        q: "Saat menggerinda material kecil yang sulit dipegang, risiko tangan terkena batu gerinda sangat tinggi. Bagaimana cara kerja yang aman?",
+        o: ["Memegang material dengan sangat kuat agar tidak lepas", "Menggunakan dua lapis sarung tangan kulit (welding gloves)", "Menjepit material menggunakan ragum (clamp) di meja kerja", "Meminta bantuan rekan untuk memegang material dengan tang"],
+        a: 2,
+        r: "Ragum (clamp) menghilangkan kebutuhan tangan berada di dekat zona bahaya putaran mesin.",
         img: "grinding-clamp.jpg"
     },
     {
-        q: "Untuk mengendalikan ayunan dan posisi orientasi beban besar saat proses lifting di area terbuka, apa kendali utama yang wajib disiapkan?",
+        q: "Untuk mengendalikan ayunan beban besar saat proses lifting di area terbuka, apa kendali utama yang wajib disiapkan?",
         o: [
             "Menahan beban dengan tangan menggunakan sarung tangan kulit",
             "Menggunakan tag line (tali kendali) yang terpasang pada beban",
@@ -182,168 +182,168 @@ const questions = [
             "Meminta bantuan rekan untuk memegangi beban secara langsung"
         ],
         a: 1, 
-        r: "Tag line memungkinkan pengendalian beban dari jarak aman, menjaga pekerja tetap berada di luar Line of Fire (jalur bahaya).",
+        r: "Tag line memungkinkan pengendalian beban dari jarak aman, menjaga pekerja tetap berada di luar Line of Fire.",
         img: "tag-line.jpg"
     },
     {
-        q: "Material panjang dipindahkan manual melewati koridor sempit. Apa langkah keselamatan utamanya?",
-        o: ["Koordinasi komunikasi yang intens", "Berjalan dengan sangat perlahan", "Menggunakan alat bantu seperti dolly", "Angkat berdua depan-belakang"],
-        a: 2, // Sekarang jawabannya C
-        r: "Alat bantu roda menghilangkan beban angkat manual.",
+        q: "Material pipa panjang dipindahkan manual melewati koridor sempit dengan banyak tikungan. Apa langkah keselamatan utamanya?",
+        o: ["Koordinasi komunikasi aba-aba yang intens antara pengangkat", "Menggunakan alat bantu roda seperti dolly atau roller", "Berjalan dengan langkah pendek untuk menjaga keseimbangan", "Memastikan ujung pipa dibungkus kain agar tidak membentur dinding"],
+        a: 1,
+        r: "Alat bantu roda (dolly) memindahkan beban dari punggung ke alat mekanis dan memudahkan manuver di koridor sempit.",
         img: "dolly-transport.jpg"
     },
     {
-        q: "Forklift terpaksa diparkir sementara di area miring (slope). Apa yang wajib dilakukan?",
-        o: ["Memasang ganjal roda dan turunkan fork", "Menarik rem tangan maksimal", "Memastikan roda lurus dan mesin nyala", "Mencabut kunci tanpa menurunkan beban"],
+        q: "Forklift harus diparkir sementara di area yang memiliki kemiringan (slope). Tindakan keamanan apa yang paling krusial?",
+        o: ["Memasang ganjal roda (chock) dan menurunkan fork hingga menyentuh lantai", "Menarik rem tangan maksimal tanpa mematikan mesin", "Mengarahkan roda ke arah dinding atau penghalang terdekat", "Meninggalkan kunci di dalam agar forklift bisa segera dipindahkan jika meluncur"],
         a: 0,
-        r: "Ganjal roda wajib untuk mencegah kegagalan rem mekanis.",
+        r: "Ganjal roda wajib digunakan di area miring untuk mencegah kegagalan rem mekanis secara tiba-tiba.",
         img: "forklift-slope.jpg"
     },
     {
-        q: "Di area painting, uap cat sangat tinggi hingga mengganggu penglihatan. Apa tindakan yang benar?",
-        o: ["Masker penutup hidung biasa", "Respirator cartridge uap organik", "Menjauh sejenak dari area tersebut", "Menunggu sirkulasi udara alami"],
+        q: "Di area pengecatan (painting), uap kimia sangat menyengat. Jenis respirator apa yang memberikan perlindungan benar?",
+        o: ["Masker debu N95 agar uap tidak terhirup", "Respirator dengan cartridge uap organik (warna hitam)", "Respirator dengan filter debu standar yang masih baru", "Cukup ventilasi alami tanpa perlu menggunakan respirator"],
         a: 1,
-        r: "Uap kimia butuh cartridge kimia khusus.",
+        r: "Uap kimia (solvent) memerlukan filtrasi karbon aktif yang terdapat pada cartridge uap organik.",
         img: "chemical-vapor.jpg"
     },
     {
-        q: "Welding di ketinggian, percikan api berisiko jatuh ke pekerja di bawah. Apa solusinya?",
-        o: ["Memberi info lisan ke bawah", "Mengarahkan posisi las ke tempat kosong", "Mempercepat durasi pengelasan", "Memasang fire blanket/barrier di bawah"],
-        a: 3,
-        r: "Barrier melindungi area di bawah dari spatter panas.",
+        q: "Welding dilakukan di lantai 2 grating, dan terdapat aktivitas pekerja di lantai bawah. Apa prosedur 'Dropped Object' yang harus diterapkan?",
+        o: ["Cukup memberikan peringatan lisan kepada pekerja di bawah", "Memasang fire blanket untuk menangkap percikan dan barikade area bawah", "Melakukan pengelasan dengan durasi yang sangat singkat", "Mengarahkan percikan las ke arah yang dirasa kosong"],
+        a: 1,
+        r: "Barikade mengisolasi zona bahaya (Line of Fire) agar orang tidak melintas di bawah area kerja panas.",
         img: "welding-height.jpg"
     },
     {
-        q: "Batu gerinda baru saja diganti. Sebelum mulai bekerja, apa prosedur safety yang benar?",
-        o: ["Melakukan test run 1 menit di area aman", "Langsung melakukan pemotongan tes", "Menjauhkan wajah saat pertama nyala", "Memutar manual dengan tangan"],
+        q: "Batu gerinda baru saja diganti dengan yang baru. Sebelum digunakan untuk bekerja, apa prosedur safety yang benar?",
+        o: ["Melakukan 'Ring Test' dan test run selama 1 menit di area aman", "Langsung melakukan pemotongan pada material bekas untuk tes", "Memastikan batu gerinda terpasang kencang tanpa perlu test run", "Menyentuhkan batu gerinda ke tangan yang memakai sarung tangan"],
         a: 0,
-        r: "Test run memastikan tidak ada keretakan pada batu baru.",
+        r: "Test run memastikan tidak ada cacat pabrik atau keretakan pada batu gerinda yang bisa menyebabkan pecah saat kecepatan tinggi.",
         img: "grinding-test.jpg"
     },
     {
-        q: "Saat assembly, terdapat pinch point sempit berisiko menjepit jari. Apa kendali paling efektif?",
-        o: ["Bekerja ekstra hati-hati", "Menggunakan tool bantu (extension tool)", "Meminta rekan beri aba-aba", "Menunggu mesin mati total (LOTO)"],
+        q: "Saat assembly mesin, terdapat pinch point sempit yang berisiko menjepit jari. Apa kendali teknis terbaik?",
+        o: ["Membuat instruksi kerja 'hati-hati jangan sampai terjepit'", "Menggunakan alat bantu panjang (push-pull/extension tool)", "Menggunakan sarung tangan antipotong (cut resistant)", "Menambah penerangan di area kerja agar titik jepit terlihat"],
         a: 1,
-        r: "Alat bantu menjauhkan tubuh dari titik jepit.",
+        r: "Alat bantu jarak jauh adalah kendali teknis yang menjauhkan tubuh dari titik bahaya.",
         img: "extension-tool.jpg"
     },
     {
-        q: "Anda menemukan beban di lantai dengan posisi sulit dijangkau. Bagaimana cara angkat yang aman?",
-        o: ["Menekuk lutut dan tarik punggung", "Menggunakan alat ungkit/mechanical lifter", "Posisi tubuh sedekat mungkin ke beban", "Mengangkatnya perlahan-lahan"],
+        q: "Anda menemukan beban berat di lantai dengan posisi yang sulit dijangkau karena terhalang mesin lain. Bagaimana cara angkat yang benar?",
+        o: ["Membungkukkan punggung sedikit agar bisa meraih beban", "Menggunakan alat bantu pengungkit atau mechanical lifter", "Meminta dua rekan menarik beban tersebut secara paksa", "Mencoba mengangkat dengan posisi kaki satu di atas mesin"],
         a: 1,
-        r: "Gunakan bantuan mekanis jika posisi tidak ergonomis.",
+        r: "Jika ergonomi tubuh tidak bisa ideal (punggung tegak, kaki ditekuk), gunakan bantuan alat angkat mekanis.",
         img: "lifting-posture.jpg"
     },
     {
-        q: "Operator forklift harus bergerak mundur di area banyak blind spot. Apa tindakan paling aman?",
-        o: ["Menggunakan bantuan spotter", "Membunyikan klakson berulang", "Mengemudi sambil menengok belakang", "Menjaga jarak 1.5 meter dari rak"],
-        a: 0,
-        r: "Spotter sangat krusial saat manuver mundur.",
+        q: "Operator forklift harus melakukan manuver mundur karena pandangan depan terhalang. Apa prioritas keselamatan utamanya?",
+        o: ["Mengandalkan cermin belakang forklift sepenuhnya", "Meminta bantuan spotter yang berdiri di jalur aman untuk memandu", "Membunyikan sirine mundur tanpa perlu spotter", "Melihat ke belakang sesekali sambil tetap melaju"],
+        a: 1,
+        r: "Spotter berfungsi memberikan informasi blind spot yang tidak terjangkau oleh mata operator.",
         img: "forklift-reverse.jpg"
     },
     {
-        q: "Blasting di dalam tanki (ruang terbatas). Bahaya utama penumpukan debu. Apa mitigasinya?",
-        o: ["Ventilasi alami dibuka lebar", "Masker debu standar & shift pendek", "Ventilasi paksa (blower) & suplai udara", "Tekanan blasting rendah"],
-        a: 2,
-        r: "Confined space wajib menggunakan blower/ventilasi paksa.",
+        q: "Kegiatan abrasive blasting dilakukan di dalam tanki (confined space). Bahaya apa yang paling fatal jika ventilasi tidak memadai?",
+        o: ["Bau menyengat yang mengganggu kenyamanan", "Kekurangan oksigen dan penumpukan debu silika yang mematikan", "Kenaikan suhu udara di dalam tanki", "Debu yang membuat kaca helm blasting menjadi buram"],
+        a: 1,
+        r: "Di ruang terbatas, akumulasi kontaminan sangat cepat; wajib menggunakan blower/ventilasi paksa.",
         img: "confined-blower.jpg"
     },
     {
-        q: "Asap welding memenuhi ruangan workshop tertutup. Apa tindakan yang harus diprioritaskan?",
-        o: ["Menyalakan sistem fume extractor", "Geser welding ke dekat pintu", "Memakai masker N95", "Selesaikan dengan cepat lalu keluar"],
+        q: "Asap pengelasan (welding fumes) memenuhi workshop tertutup. Langkah pengendalian manakah yang berada di hierarki tertinggi?",
+        o: ["Menggunakan sistem penghisap asap (Fume Extractor) tepat di sumbernya", "Membuka semua pintu dan jendela workshop", "Mewajibkan semua welder memakai respirator N95", "Menginstruksikan welder untuk beristirahat setiap 30 menit"],
         a: 0,
-        r: "Hisap kontaminan langsung di sumbernya.",
+        r: "Engineering control (fume extractor) lebih efektif menghilangkan asap sebelum menyebar ke lingkungan.",
         img: "fume-extractor.jpg"
     },
     {
-        q: "Anda menemukan gerinda tangan yang guard-nya dilepas. Apa yang harus dilakukan?",
-        o: ["Gunakan sangat hati-hati", "Berhenti & pasang kembali guard", "Gunakan putaran rendah", "Lanjutkan karena tinggal sedikit"],
+        q: "Anda menemukan mesin gerinda tangan yang pelindungnya (guard) telah dilepas agar bisa menjangkau area sempit. Apa tindakan Anda?",
+        o: ["Menggunakan sangat hati-hati dengan faceshield terpasang", "Berhenti bekerja dan memasang kembali guard sebelum lanjut", "Mengurangi kecepatan putaran gerinda secara manual", "Meminta izin lisan dari supervisor untuk tetap melanjutkan"],
         a: 1,
-        r: "Dilarang bekerja tanpa guard pelindung mesin.",
+        r: "Dilarang memodifikasi atau melepas alat pengaman mesin (guard) dalam kondisi apapun.",
         img: "grinding-guard.jpg"
     },
     {
-        q: "Saat memposisikan beban besar di crane, tangan pekerja sering di bawah beban. Prosedur yang benar?",
-        o: ["Tangan di sisi samping beban", "Aba-aba keras ke operator", "Tunggu beban benar-benar berhenti", "Gunakan push-pull stick"],
-        a: 3,
-        r: "Push-pull stick menjauhkan tangan dari jalur jatuhan beban.",
+        q: "Saat memposisikan beban besar menggunakan crane, tangan pekerja sering terpapar risiko terjepit. Prosedur apa yang paling aman?",
+        o: ["Pekerja harus memegang sisi samping beban dengan telapak tangan terbuka", "Gunakan push-pull stick untuk mengatur posisi tanpa menyentuh beban", "Aba-aba keras kepada operator agar gerakan crane sangat halus", "Menunggu beban menyentuh lantai baru boleh dipegang oleh tangan"],
+        a: 1,
+        r: "Push-pull stick menjaga tangan tetap berada di zona aman, jauh dari titik jepit.",
         img: "push-pull-stick.jpg"
     },
     {
-        q: "Tugas pindah kardus berat berulang kali selama satu shift. Apa solusi jangka panjang terbaik?",
-        o: ["Gunakan conveyor atau hand pallet", "Peregangan otot tiap 15 menit", "Bagi tugas dengan rekan kerja", "Pelajari teknik angkat benar"],
-        a: 0,
-        r: "Ganti tenaga manusia dengan alat roda/conveyor.",
+        q: "Pekerja harus memindahkan kardus berat berulang-ulang dari conveyor ke pallet selama 8 jam. Apa solusi ergonomi terbaik?",
+        o: ["Memberikan suplemen vitamin dan istirahat lebih sering", "Mengganti tenaga manusia dengan sistem automasi/vacuum lifter", "Mewajibkan penggunaan sabuk penyangga punggung (back support)", "Meminta pekerja untuk melakukan pemanasan tiap jam"],
+        a: 1,
+        r: "Automasi menghilangkan risiko cedera otot rangka (MSDs) akibat beban kerja repetitif.",
         img: "conveyor-system.jpg"
     },
     {
-        q: "Saat lifting, Anda sadar titik angkat tidak di tengah (tidak center). Apa tindakan Anda?",
-        o: ["Koreksi posisi saat beban naik", "Turunkan beban dan atur ulang rigging", "Jaga jarak jika beban miring", "Tahan beban dengan berat tubuh"],
+        q: "Saat lifting dimulai, Anda menyadari beban miring karena titik angkat tidak center. Apa yang harus dilakukan rigger?",
+        o: ["Menyeimbangkan beban dengan berat tubuh rigger", "Segera instruksikan operator untuk menurunkan beban dan atur ulang rigging", "Menahan beban menggunakan tag line agar lurus kembali", "Membiarkan saja karena kemiringan hanya sedikit"],
         a: 1,
-        r: "Jangan biarkan beban miring saat naik; atur ulang rigging.",
+        r: "Beban miring menandakan ketidakseimbangan pusat gravitasi; wajib diatur ulang sebelum diangkat tinggi.",
         img: "unbalanced-load.jpg"
     },
     {
-        q: "Blasting di area terbuka dekat jalur lalu lintas orang. Apa pengamanan terbaik?",
-        o: ["Pasang tanda 'Bahaya Blasting'", "Pasang barikade isolasi area tertutup", "Info lisan kepada tiap orang lewat", "Kerjakan saat jam istirahat"],
+        q: "Blasting dilakukan di area terbuka yang dekat dengan jalur lalu lintas orang. Apa sistem pengamanan paling tepat?",
+        o: ["Menempatkan tanda peringatan 'Hati-hati Blasting'", "Memasang barikade tertutup (hard barricade) dan mengisolasi area", "Memberi instruksi lisan kepada setiap orang yang melintas", "Melakukan blasting hanya pada malam hari saja"],
         a: 1,
-        r: "Isolasi fisik mencegah orang terpapar percikan.",
+        r: "Isolasi area mencegah orang yang tidak berkepentingan masuk ke zona paparan bahaya.",
         img: "blasting-barricade.jpg"
     },
     {
-        q: "Supervisor minta welding mendesak, tapi Permit belum disetujui. Apa sikap Anda?",
-        o: ["Menolak sampai permit ditandatangani", "Langsung kerjakan sesuai perintah", "Cek area sendiri lalu mulai", "Mulai sambil tunggu permit proses"],
+        q: "Supervisor meminta Anda melakukan pekerjaan las mendadak, tetapi Permit belum disetujui. Apa sikap profesional Anda?",
+        o: ["Menolak bekerja sampai Permit ditandatangani secara resmi", "Mulai bekerja agar target produksi tercapai tepat waktu", "Melakukan pengecekan safety sendiri tanpa perlu Permit", "Bekerja sebentar saja sambil menunggu Permit diproses"],
         a: 0,
-        r: "Legalitas permit adalah bukti area telah diperiksa aman.",
+        r: "Permit to Work memastikan semua bahaya telah diidentifikasi dan dikendalikan secara legal.",
         img: "work-permit.jpg"
     },
     {
-        q: "Saat grinding plat panjang tidak stabil terjadi kickback. Apa solusinya?",
-        o: ["Rekan menginjak ujung plat", "Tekan mesin gerinda lebih kuat", "Gunakan klem (clamp) pada meja kerja", "Tahan plat dengan tangan kiri"],
-        a: 2,
-        r: "Gunakan klem untuk menstabilkan material.",
+        q: "Terjadi hentakan mendadak (kickback) saat Anda menggerinda plat yang tidak stabil. Apa pencegahan yang paling benar?",
+        o: ["Menekan mesin gerinda lebih kuat agar tidak melompat", "Memastikan material dijepit kuat menggunakan klem (clamp) di meja kerja", "Meminta rekan kerja memegangi plat tersebut dengan kaki", "Menggunakan batu gerinda yang diameternya lebih kecil"],
+        a: 1,
+        r: "Kestabilan material kerja adalah kunci utama mencegah kickback yang melukai operator.",
         img: "grinding-kickback.jpg"
     },
     {
-        q: "Bolting di area sempit sering mengakibatkan jari terjepit kunci. Bagaimana menghindarinya?",
-        o: ["Aba-aba sinkron", "Pastikan jari tidak di line of fire", "Gunakan hydraulic torque wrench", "Gunakan lampu lebih terang"],
+        q: "Pekerjaan bolting di area sempit sering kali menyebabkan jari terjepit kunci. Bagaimana cara menghindarinya?",
+        o: ["Bekerja dengan gerakan sinkron antar pekerja", "Memastikan posisi tangan selalu berada di luar Line of Fire kunci", "Menggunakan sarung tangan karet agar tidak licin", "Menggunakan kunci yang sudah dimodifikasi"],
         a: 1,
-        r: "Kenali jalur gerakan kunci agar jari tidak terjepit.",
+        r: "Mengetahui arah gerakan kunci (Line of Fire) mencegah jari terperangkap.",
         img: "line-of-fire.jpg"
     },
     {
-        q: "Mengangkat beban repetitif (berulang). Risiko paling mungkin?",
-        o: ["Cedera tulang belakang kronis", "Pingsan", "Cedera otot akut", "Pusing"],
+        q: "Risiko utama dari pekerjaan mengangkat beban secara berulang dalam posisi membungkuk adalah:",
+        o: ["Cedera tulang belakang kronis (LBP/HNP)", "Kelelahan otot sesaat yang bisa hilang dengan tidur", "Meningkatkan kekuatan otot punggung secara alami", "Pusing dan gangguan penglihatan sementara"],
         a: 0,
-        r: "Cedera kumulatif sering terjadi pada tugas repetitif.",
+        r: "Cedera kumulatif pada cakram tulang belakang sering terjadi akibat posisi angkat yang tidak ergonomis.",
         img: "ergonomic-pain.jpg"
     },
     {
-        q: "Forklift melewati persimpangan gudang blind spot. Prosedurnya?",
-        o: ["Berhenti total, klakson, pastikan aman", "Klakson melaju", "Kurangi kecepatan", "Melihat cermin saja"],
-        a: 0,
-        r: "Gunakan prosedur Stop, Look, Listen.",
+        q: "Forklift mendekati persimpangan gudang yang memiliki blind spot. Apa tindakan operasional standar?",
+        o: ["Menekan klakson tanpa perlu berhenti", "Berhenti total, klakson, pastikan aman, lalu melaju perlahan", "Meningkatkan kecepatan agar cepat melewati persimpangan", "Mengandalkan insting operator karena area biasanya sepi"],
+        a: 1,
+        r: "Prosedur Stop, Look, Listen (SLL) wajib di persimpangan untuk mencegah tabrakan.",
         img: "stop-look-listen.jpg"
     },
     {
-        q: "Paparan bau kimia menyengat di luar ruangan. Perlindungan diri?",
-        o: ["Masker kain", "Respirator cartridge kimia", "Melawan arah angin", "Tutup hidung tangan"],
+        q: "Bau kimia menyengat tercium di area kerja luar ruangan (outdoor). Tindakan pertama apa yang harus Anda ambil?",
+        o: ["Tutup hidung dengan tangan dan tetap lanjut bekerja", "Mencari arah angin dan bergerak menuju arah datangnya angin (upwind)", "Mendekati sumber bau untuk mencari tahu jenis kimianya", "Menunggu instruksi supervisor melalui radio"],
         a: 1,
-        r: "Filter kimia wajib untuk paparan gas.",
+        r: "Bergerak ke posisi Upwind (melawan arah angin) menjauhkan Anda dari konsentrasi gas/uap.",
         img: "wind-direction.jpg"
     },
     {
-        q: "Welding di lantai 2, risiko api jatuh ke bawah. Solusi?",
-        o: ["Fire blanket & barikade bawah", "Info lisan", "Ubah posisi las", "Siram air"],
+        q: "Welding di lantai 2 grating, dan terdapat aktivitas di lantai bawah. Pengamanan apa yang wajib?",
+        o: ["Memasang fire blanket di bawah area las dan memberi barikade bawah", "Cukup dengan menyiram air di lantai bawah", "Meminta orang di bawah untuk memakai payung pelindung", "Melakukan pengelasan hanya saat tidak ada orang di bawah"],
         a: 0,
-        r: "Lindungi area bawah secara fisik.",
+        r: "Isolasi fisik menggunakan fire blanket mencegah kebakaran dan cedera di lantai bawah.",
         img: "fire-blanket.jpg"
     },
     {
-        q: "Lantai licin saat menggerinda. Apa tindakan safety?",
-        o: ["Berpegangan", "Berhenti, bersihkan & posisikan ulang", "Sangat pelan", "Minta pegangi"],
+        q: "Lantai area kerja licin karena tumpahan oli saat Anda sedang menggerinda. Apa tindakan Anda?",
+        o: ["Risiko terpeleset, tetap lanjut dengan kaki ditekuk lebar", "Berhenti, bersihkan tumpahan, dan pastikan area kering sebelum lanjut", "Gunakan sepatu safety yang solnya tebal tanpa membersihkan oli", "Minta rekan untuk memegang tubuh Anda agar tidak jatuh"],
         a: 1,
-        r: "Keseimbangan adalah kunci keselamatan kerja.",
+        r: "Housekeeping yang buruk adalah penyebab utama kecelakaan; area kerja wajib bersih dari bahaya licin.",
         img: "slippery-floor.jpg"
     }
 ];
@@ -357,8 +357,6 @@ function show() {
     document.getElementById('qnum').innerText = "Soal " + (current + 1) + "/" + questions.length;
     document.getElementById('qtext').innerText = q.q;
     document.getElementById('bar').style.width = ((current + 1) / questions.length * 100) + "%";
-    
-    // Memastikan path gambar benar (tanpa subfolder)
     document.getElementById('quizImg').src = q.img;
 
     let optionsHtml = q.o.map((o, i) => {
@@ -381,14 +379,15 @@ function finish() {
     
     let lvl = p >= 90 ? "SAFETY LEADER" : p >= 70 ? "SAFETY AWARE" : "HIGH RISK";
     document.getElementById("levelText").innerText = lvl;
+    document.getElementById("descText").innerText = p >= 90 ? "Luar biasa! Anda memiliki insting keselamatan kerja yang sangat matang." : "Terus tingkatkan kesadaran bahaya di lingkungan kerja Anda.";
 
     let wrongHtml = "";
     questions.forEach((q, i) => {
         if(answers[i] !== q.a) {
-            wrongHtml += `<div class="wrong-item"><b>No ${i+1}:</b> ${q.q}<br><i style="color:red">Salah.</i> <b>Safety:</b> ${q.r}</div>`;
+            wrongHtml += `<div class="wrong-item"><b>No ${i+1}:</b> ${q.q}<br><i style="color:red">Salah.</i> <b>Standard Safety:</b> ${q.r}</div>`;
         }
     });
-    document.getElementById("wrongList").innerHTML = wrongHtml || "Sempurna!";
+    document.getElementById("wrongList").innerHTML = wrongHtml || "Sempurna! Tidak ada kesalahan.";
 }
 
 function share() {
